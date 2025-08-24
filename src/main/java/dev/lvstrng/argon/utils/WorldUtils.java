@@ -204,7 +204,7 @@ public final class WorldUtils {
 		if (!(itemStack.getItem() instanceof SwordItem) && !(itemStack.getItem() instanceof PickaxeItem) && !(itemStack.getItem() instanceof AxeItem) && !(itemStack.getItem() instanceof ShovelItem) && !(itemStack.getItem() instanceof HoeItem)) {
 			return false;
 		}
-		ToolMaterial material = ((ToolItem) itemStack.getItem()).getMaterial();
+		ToolMaterial material = (itemStack.getItem()).getMaterial();
 		return material == ToolMaterial.DIAMOND || material == ToolMaterial.NETHERITE;
 	}
 
