@@ -24,6 +24,6 @@ public final class Sprint extends Module implements TickListener {
 
     @Override
     public void onTick() {
-        mc.player.setSprinting(mc.player.input.pressingForward);
+        mc.player.setSprinting(mc.player.input.pressingForward > 0);
     }
 }
