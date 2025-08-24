@@ -319,7 +319,7 @@ public final class RenderUtils {
 		genericAABBRender(
 				VertexFormat.DrawMode.DEBUG_LINES,
 				VertexFormats.POSITION_COLOR,
-				GameRenderer::getPositionColorProgram,
+				GameRenderer::getRendertypeLinesProgram,
 				s,
 				start,
 				end.subtract(start),
