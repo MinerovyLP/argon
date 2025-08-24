@@ -70,7 +70,7 @@ public final class RenderUtils {
 		float k = (float) (color & 255) / 255.0F;
 		RenderSystem.enableBlend();
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 
 		renderRoundedQuadInternal(matrix, g, h, k, f, x, y, x2, y2, corner1, corner2, corner3, corner4, samples);
 		RenderSystem.enableCull();
@@ -148,7 +148,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 		for (int i = 0; i < 360; i += Math.min(360 / segments1, 360 - i)) {
 			double radians = Math.toRadians(i);
@@ -181,7 +181,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 
 		renderRoundedOutlineInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, rad1, rad2, rad3, rad4, width, samples);
 		cleanup();
