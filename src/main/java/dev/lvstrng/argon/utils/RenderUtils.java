@@ -51,13 +51,13 @@ public final class RenderUtils {
 	}
 
 	public static void unscaledProjection() {
-		vertexSorter = RenderSystem.getVertexSorting();
-		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), VertexSorter.BY_Z);
+		vertexSorter = RenderSystem.getProjectionType();
+		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), vertexSorter.ORTHOGRAPHIC);
 		rendering3D = false;
 	}
 
 	public static void scaledProjection() {
-		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, (float) (mc.getWindow().getFramebufferWidth() / mc.getWindow().getScaleFactor()), (float) (mc.getWindow().getFramebufferHeight() / mc.getWindow().getScaleFactor()), 0, 1000, 21000), vertexSorter);
+		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, (float) (mc.getWindow().getFramebufferWidth() / mc.getWindow().getScaleFactor()), (float) (mc.getWindow().getFramebufferHeight() / mc.getWindow().getScaleFactor()), 0, 1000, 21000), vertexSorter.PERSPECTIVE);
 		rendering3D = true;
 	}
 
@@ -361,7 +361,7 @@ public final class RenderUtils {
 		runner.accept(bb);
 
 		setup();
-		RenderSystem.setShader(shader);
+		RenderSystem.setShader(() -> shader);
 		BufferRenderer.drawWithGlobalProgram(bb.end());
 		cleanup();
 	}
