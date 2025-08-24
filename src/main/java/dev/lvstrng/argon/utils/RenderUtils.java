@@ -260,7 +260,7 @@ public final class RenderUtils {
 		RenderSystem.enableBlend();
 		RenderSystem.disableDepthTest();
 		RenderSystem.setShaderColor((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
-		RenderSystem.setShader(GameRenderer::getPositionProgram);
+		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION);
 		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), f, f2, f3);
