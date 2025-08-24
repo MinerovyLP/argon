@@ -16,6 +16,7 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.util.SkinTextures;
 
 import java.awt.*;
 
@@ -102,7 +103,7 @@ public final class TargetHud extends Module implements HudListener, PacketSendLi
 
 			TextRenderer.drawString("Ping: " + entry.getLatency(), context, x + 5, y + 125, Color.WHITE.getRGB());
 
-			PlayerSkinDrawer.draw(context, entry.getSkinTextures().texture(), x + 3, y + 3, 20);
+			PlayerSkinDrawer.draw(context, entry.getSkinTextures(), x + 3, y + 3, 20);
 
 			if (player.hurtTime != 0) {
 				int charOff1 = x + 125;
