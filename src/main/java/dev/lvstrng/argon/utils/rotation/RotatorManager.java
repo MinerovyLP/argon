@@ -160,8 +160,8 @@ public final class RotatorManager implements PacketSendListener, BlockBreakingLi
 	@Override
 	public void onPacketReceive(PacketReceiveEvent event) {
 		if (event.packet instanceof PlayerPositionLookS2CPacket packet) {
-			serverYaw = packet.Yaw();
-			serverPitch = packet.Pitch();
+			serverYaw = packet.yaw();
+			serverPitch = packet.pitch();
 		}
 	}
 }
