@@ -69,7 +69,7 @@ public final class AutoXP extends Module implements TickListener, ItemUseListene
 				MouseSimulation.mouseClick(GLFW.GLFW_MOUSE_BUTTON_RIGHT);
 
 			ActionResult result = mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
-			if (result.isAccepted() && result.shouldSwingHand()) mc.player.swingHand(Hand.MAIN_HAND);
+			if (result.isAccepted() && result.shouldSwingHand(mc.player)) mc.player.swingHand(Hand.MAIN_HAND);
 
 			clock = delay.getValueInt();
 		}
