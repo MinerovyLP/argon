@@ -9,6 +9,6 @@ import java.util.Map;
 
 @Mixin(ShaderProgram.class)
 public interface ShaderProgramAccessor {
-	@Accessor("loadedUniforms")
+	@Accessor("uniforms")
 	Map<String, GlUniform> getLoadedUniforms();
 }
