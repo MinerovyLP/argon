@@ -64,7 +64,7 @@ public final class KeyPearl extends Module implements TickListener {
 
             if(!hasActivated) {
                 ActionResult result = mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
-                if (result.isAccepted() && result.shouldSwingHand())
+                if (result.isAccepted() && result.shouldSwingHand(mc.player))
                     mc.player.swingHand(Hand.MAIN_HAND);
 
                 hasActivated = true;
