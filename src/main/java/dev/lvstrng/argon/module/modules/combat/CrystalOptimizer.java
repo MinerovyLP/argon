@@ -21,6 +21,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.world.ServerWorld;
 
 public final class CrystalOptimizer extends Module implements PacketSendListener {
 	public CrystalOptimizer() {
@@ -69,7 +70,7 @@ public final class CrystalOptimizer extends Module implements PacketSendListener
 							if (!(weakness == null || strength != null && strength.getAmplifier() > weakness.getAmplifier() || WorldUtils.isTool(mc.player.getMainHandStack())))
 								return;
 
-							hit.getEntity().kill();
+							hit.getEntity().kill((ServerWorld) mc.world);
 							hit.getEntity().setRemoved(Entity.RemovalReason.KILLED);
 							hit.getEntity().onRemoved();
 						}
