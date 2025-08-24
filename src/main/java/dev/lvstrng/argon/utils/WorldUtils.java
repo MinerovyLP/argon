@@ -141,7 +141,7 @@ public final class WorldUtils {
 
 	public static void placeBlock(BlockHitResult blockHit, boolean swingHand) {
 		ActionResult result = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, blockHit);
-		if (result.isAccepted() && result.shouldSwingHand() && swingHand) mc.player.swingHand(Hand.MAIN_HAND);
+		if (result.isAccepted() && result.shouldSwingHand(mc.player) && swingHand) mc.player.swingHand(Hand.MAIN_HAND);
 	}
 
 	public static Stream<WorldChunk> getLoadedChunks() {
