@@ -10,9 +10,12 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -198,11 +201,11 @@ public final class WorldUtils {
 	}
 
 	public static boolean isTool(ItemStack itemStack) {
-		if (!(itemStack.getItem() instanceof ToolItem)) {
+		if (!(itemStack.getItem() instanceof SwordItem) && !(itemStack.getItem() instanceof PickaxeItem) && !(itemStack.getItem() instanceof AxeItem) && !(itemStack.getItem() instanceof ShovelItem) && !(itemStack.getItem() instanceof HoeItem)) {
 			return false;
 		}
 		ToolMaterial material = ((ToolItem) itemStack.getItem()).getMaterial();
-		return material == ToolMaterials.DIAMOND || material == ToolMaterials.NETHERITE;
+		return material == ToolMaterial.DIAMOND || material == ToolMaterial.NETHERITE;
 	}
 
 	public static boolean isCrit(PlayerEntity player, Entity target) {
