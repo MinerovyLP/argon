@@ -92,7 +92,7 @@ public final class AutoPot extends Module implements TickListener {
 					mc.player.setPitch(90F);
 
 				ActionResult actionResult = mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
-				if (actionResult.shouldSwingHand())
+				if (actionResult.shouldSwingHand(mc.player))
 					mc.player.swingHand(Hand.MAIN_HAND);
 
 				throwClock = 0;
