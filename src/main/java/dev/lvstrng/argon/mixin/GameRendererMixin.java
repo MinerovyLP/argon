@@ -21,14 +21,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class GameRendererMixin {
 	@Shadow public abstract Matrix4f getBasicProjectionMatrix(float fov);
 
-	@Shadow protected abstract double getFov(Camera camera, float tickDelta, boolean changingFov);
+	@Shadow protected abstract float getFov(Camera camera, float tickDelta, boolean changingFov);
 
 	@Shadow @Final private Camera camera;
 
 	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V", ordinal = 1))
 	private void onWorldRender(RenderTickCounter tickCounter, CallbackInfo ci) {
-		double d = getFov(camera, tickCounter.getTickDelta(true), true);
-		Matrix4f matrix4f = getBasicProjectionMatrix((float) d);
+		float d = getFov(camera, tickCounter.getTickDelta(true), true);
+		Matrix4f matrix4f = getBasicProjectionMatrix(d);
 		MatrixStack matrixStack = new MatrixStack();
 		EventManager.fire(new GameRenderListener.GameRenderEvent(matrixStack, tickCounter.getTickDelta(true)));
 	}
