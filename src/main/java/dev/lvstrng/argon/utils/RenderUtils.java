@@ -339,7 +339,7 @@ public final class RenderUtils {
 		matrices.pop();
 	}
 
-	private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
+	/**private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
 		float red = color.getRed() / 255f;
 		float green = color.getGreen() / 255f;
 		float blue = color.getBlue() / 255f;
@@ -364,5 +364,5 @@ public final class RenderUtils {
 		RenderSystem.setShader(shader);
 		BufferRenderer.drawWithGlobalProgram(bb.end());
 		cleanup();
-	}
+	}*/
 }
