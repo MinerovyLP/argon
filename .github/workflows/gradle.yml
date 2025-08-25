@@ -45,5 +45,5 @@ jobs:
       - name: Upload JARs
         uses: actions/upload-artifact@v4
         with:
-          name: built-jars
+          name: Argon-Client
           path: build/libs/*.jar
