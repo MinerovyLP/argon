@@ -39,7 +39,7 @@ jobs:
 
       # Build with Gradle
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean build
 
       # Upload JARs as build artifacts
       - name: Upload JARs
