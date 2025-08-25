@@ -14,6 +14,7 @@ import dev.lvstrng.argon.utils.RenderUtils;
 import dev.lvstrng.argon.utils.Utils;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -127,7 +128,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 
 		Matrix4f matrix = stack.peek().getPositionMatrix();
 
-		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		RenderSystem.setShader(ShaderProgramKeys.RENDERTYPE_LINES);
 		if (ClickGUI.antiAliasing.getValue()) {
 			GL11.glEnable(GL13.GL_MULTISAMPLE);
 			GL11.glEnable(GL11.GL_LINE_SMOOTH);

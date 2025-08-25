@@ -7,6 +7,7 @@ import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
@@ -151,7 +152,7 @@ public final class GlyphPage {
 		float height = glyph.height;
 
 		//getPositionColorTexProgram
-		//RenderSystem.setShader(GameRenderer::getRendertypeTextProgram);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
 		bindTexture();
 
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);

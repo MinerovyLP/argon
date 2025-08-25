@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.ProjectionType;
 import dev.lvstrng.argon.module.modules.client.ClickGUI;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
@@ -70,7 +71,7 @@ public final class RenderUtils {
 		float k = (float) (color & 255) / 255.0F;
 		RenderSystem.enableBlend();
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
 
 		renderRoundedQuadInternal(matrix, g, h, k, f, x, y, x2, y2, corner1, corner2, corner3, corner4, samples);
 		RenderSystem.enableCull();
@@ -148,7 +149,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 		for (int i = 0; i < 360; i += Math.min(360 / segments1, 360 - i)) {
 			double radians = Math.toRadians(i);
@@ -181,7 +182,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
 
 		renderRoundedOutlineInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, rad1, rad2, rad3, rad4, width, samples);
 		cleanup();
@@ -260,7 +261,7 @@ public final class RenderUtils {
 		RenderSystem.enableBlend();
 		RenderSystem.disableDepthTest();
 		RenderSystem.setShaderColor((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
-		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION);
 		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), f, f2, f3);
@@ -316,19 +317,19 @@ public final class RenderUtils {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableBlend();
 
-		//genericAABBRender(
-		//		VertexFormat.DrawMode.DEBUG_LINES,
-		//		VertexFormats.POSITION_COLOR,
-		//		GameRenderer::getRendertypeLinesProgram,
-		//		s,
-		//		start,
-		//		end.subtract(start),
-		//		color,
-		//		(buffer, x, y, z, x1, y1, z1, red, green, blue, alpha, matrix) -> {
-		//			buffer.vertex(matrix, x, y, z).color(red, green, blue, alpha);
-		//			buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha);
-		//		}
-		//);
+		genericAABBRender(
+				VertexFormat.DrawMode.DEBUG_LINES,
+				VertexFormats.POSITION_COLOR,
+				ShaderProgramKeys.POSITION_COLOR,
+				s,
+				start,
+				end.subtract(start),
+				color,
+				(buffer, x, y, z, x1, y1, z1, red, green, blue, alpha, matrix) -> {
+					buffer.vertex(matrix, x, y, z).color(red, green, blue, alpha);
+					buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha);
+				}
+		);
 
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 		RenderSystem.disableBlend();
@@ -339,7 +340,7 @@ public final class RenderUtils {
 		matrices.pop();
 	}
 
-	/**private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
+	private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
 		float red = color.getRed() / 255f;
 		float green = color.getGreen() / 255f;
 		float blue = color.getBlue() / 255f;
@@ -364,5 +365,5 @@ public final class RenderUtils {
 		RenderSystem.setShader(shader);
 		BufferRenderer.drawWithGlobalProgram(bb.end());
 		cleanup();
-	}*/
+	}
 }
