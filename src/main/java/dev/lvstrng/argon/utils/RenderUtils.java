@@ -218,7 +218,7 @@ public final class RenderUtils {
 		float blue = (color & 0xFF) / 255f;
 
 		matrices.push();
-		matrices.scale(0.5f, 0.5f, 0.5f); // Adjust scale if necessary
+		//matrices.scale(0.5f, 0.5f, 0.5f); // Adjust scale if necessary
 		matrices.translate(x, y, 0.0);
 
 		Tessellator tessellator = Tessellator.getInstance();
