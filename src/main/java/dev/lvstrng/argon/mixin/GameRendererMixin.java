@@ -1,4 +1,4 @@
-/**package dev.lvstrng.argon.mixin;
+package dev.lvstrng.argon.mixin;
 
 import dev.lvstrng.argon.Argon;
 import dev.lvstrng.argon.event.EventManager;
@@ -38,4 +38,4 @@ public abstract class GameRendererMixin {
 		if (Argon.INSTANCE.getModuleManager().getModule(Freecam.class).isEnabled())
 			cir.setReturnValue(false);
 	}
-}*/
+}
