@@ -340,7 +340,7 @@ public final class RenderUtils {
 		matrices.pop();
 	}
 
-	private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
+	private static void genericAABBRender(VertexFormat.DrawMode mode, VertexFormat format, ShaderProgramKey shader, Matrix4f stack, Vec3d start, Vec3d dimensions, Color color, RenderAction action) {
 		float red = color.getRed() / 255f;
 		float green = color.getGreen() / 255f;
 		float blue = color.getBlue() / 255f;
@@ -355,7 +355,7 @@ public final class RenderUtils {
 		useBuffer(mode, format, shader, bufferBuilder -> action.run(bufferBuilder, x1, y1, z1, x2, y2, z2, red, green, blue, alpha, stack));
 	}
 
-	private static void useBuffer(VertexFormat.DrawMode mode, VertexFormat format, Supplier<ShaderProgram> shader, Consumer<BufferBuilder> runner) {
+	private static void useBuffer(VertexFormat.DrawMode mode, VertexFormat format, ShaderProgramKey shader, Consumer<BufferBuilder> runner) {
 		Tessellator t = Tessellator.getInstance();
 		BufferBuilder bb = t.begin(mode, format);
 
