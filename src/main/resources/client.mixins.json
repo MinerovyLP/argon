@@ -29,7 +29,6 @@
     "MouseMixin",
     "OtherClientPlayerEntityAccessor",
     "ScreenMixin",
-    "ShaderProgramAccessor",
     "WorldRendererAccessor"
   ],
   "injectors": {
