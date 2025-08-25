@@ -127,7 +127,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 
 		Matrix4f matrix = stack.peek().getPositionMatrix();
 
-		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 		if (ClickGUI.antiAliasing.getValue()) {
 			GL11.glEnable(GL13.GL_MULTISAMPLE);
 			GL11.glEnable(GL11.GL_LINE_SMOOTH);

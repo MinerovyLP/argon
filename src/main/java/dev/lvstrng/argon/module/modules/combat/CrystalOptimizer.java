@@ -70,7 +70,7 @@ public final class CrystalOptimizer extends Module implements PacketSendListener
 							if (!(weakness == null || strength != null && strength.getAmplifier() > weakness.getAmplifier() || WorldUtils.isTool(mc.player.getMainHandStack())))
 								return;
 
-							hit.getEntity().kill((ServerWorld) mc.world);
+							//hit.getEntity().kill();
 							hit.getEntity().setRemoved(Entity.RemovalReason.KILLED);
 							hit.getEntity().onRemoved();
 						}

@@ -10,12 +10,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -141,7 +135,7 @@ public final class WorldUtils {
 
 	public static void placeBlock(BlockHitResult blockHit, boolean swingHand) {
 		ActionResult result = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, blockHit);
-		if (result.isAccepted() && result.shouldSwingHand(mc.player) && swingHand) mc.player.swingHand(Hand.MAIN_HAND);
+		if (result.isAccepted() && swingHand) mc.player.swingHand(Hand.MAIN_HAND);
 	}
 
 	public static Stream<WorldChunk> getLoadedChunks() {
@@ -201,12 +195,19 @@ public final class WorldUtils {
 	}
 
 	public static boolean isTool(ItemStack itemStack) {
-		if (!(itemStack.getItem() instanceof SwordItem) && !(itemStack.getItem() instanceof PickaxeItem) && !(itemStack.getItem() instanceof AxeItem) && !(itemStack.getItem() instanceof ShovelItem) && !(itemStack.getItem() instanceof HoeItem)) {
-			return false;
-		}
-		ToolMaterial material = (itemStack.getItem()).getMaterial();
-		return material == ToolMaterial.DIAMOND || material == ToolMaterial.NETHERITE;
-	}
+    Item item = itemStack.getItem();
+    
+    return item == Items.DIAMOND_SWORD ||
+           item == Items.DIAMOND_PICKAXE ||
+           item == Items.DIAMOND_AXE ||
+           item == Items.DIAMOND_SHOVEL ||
+           item == Items.DIAMOND_HOE ||
+           item == Items.NETHERITE_SWORD ||
+           item == Items.NETHERITE_PICKAXE ||
+           item == Items.NETHERITE_AXE ||
+           item == Items.NETHERITE_SHOVEL ||
+           item == Items.NETHERITE_HOE;
+    }
 
 	public static boolean isCrit(PlayerEntity player, Entity target) {
 		return player.getAttackCooldownProgress(0.5F) > 0.9F && player.fallDistance > 0.0F && !player.isOnGround() && !player.isClimbing() && !player.isSubmergedInWater() && !player.hasStatusEffect(StatusEffects.BLINDNESS) && target instanceof LivingEntity;

@@ -1,7 +1,7 @@
 package dev.lvstrng.argon.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.systems.VertexSorter;
+import com.mojang.blaze3d.systems.ProjectionType;
 import dev.lvstrng.argon.module.modules.client.ClickGUI;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
@@ -25,7 +25,7 @@ import static dev.lvstrng.argon.Argon.mc;
 
 
 public final class RenderUtils {
-	public static VertexSorter vertexSorter;
+	public static ProjectionType projectiontype;
 	public static boolean rendering3D = true;
 
 	public static Vec3d getCameraPos() {
@@ -51,13 +51,13 @@ public final class RenderUtils {
 	}
 
 	public static void unscaledProjection() {
-		vertexSorter = RenderSystem.getProjectionType();
-		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), vertexSorter.ORTHOGRAPHIC);
+		projectiontype = RenderSystem.getProjectionType();
+		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), projectiontype.ORTHOGRAPHIC);
 		rendering3D = false;
 	}
 
 	public static void scaledProjection() {
-		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, (float) (mc.getWindow().getFramebufferWidth() / mc.getWindow().getScaleFactor()), (float) (mc.getWindow().getFramebufferHeight() / mc.getWindow().getScaleFactor()), 0, 1000, 21000), vertexSorter.PERSPECTIVE);
+		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, (float) (mc.getWindow().getFramebufferWidth() / mc.getWindow().getScaleFactor()), (float) (mc.getWindow().getFramebufferHeight() / mc.getWindow().getScaleFactor()), 0, 1000, 21000), projectiontype.PERSPECTIVE);
 		rendering3D = true;
 	}
 
@@ -70,7 +70,7 @@ public final class RenderUtils {
 		float k = (float) (color & 255) / 255.0F;
 		RenderSystem.enableBlend();
 		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 
 		renderRoundedQuadInternal(matrix, g, h, k, f, x, y, x2, y2, corner1, corner2, corner3, corner4, samples);
 		RenderSystem.enableCull();
@@ -148,7 +148,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 		for (int i = 0; i < 360; i += Math.min(360 / segments1, 360 - i)) {
 			double radians = Math.toRadians(i);
@@ -181,7 +181,7 @@ public final class RenderUtils {
 		float h = (float) (color >> 8 & 255) / 255.0F;
 		float k = (float) (color & 255) / 255.0F;
 		setup();
-		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 
 		renderRoundedOutlineInternal(matrix, g, h, k, f, fromX, fromY, toX, toY, rad1, rad2, rad3, rad4, width, samples);
 		cleanup();
@@ -260,7 +260,7 @@ public final class RenderUtils {
 		RenderSystem.enableBlend();
 		RenderSystem.disableDepthTest();
 		RenderSystem.setShaderColor((float) color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() / 255, (float) color.getAlpha() / 255);
-		RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
+		//RenderSystem.setShader(GameRenderer::getRendertypeLinesProgram);
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION);
 		bufferBuilder.vertex(matrices.peek().getPositionMatrix(), f, f2, f3);
@@ -316,19 +316,19 @@ public final class RenderUtils {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableBlend();
 
-		genericAABBRender(
-				VertexFormat.DrawMode.DEBUG_LINES,
-				VertexFormats.POSITION_COLOR,
-				GameRenderer::getRendertypeLinesProgram,
-				s,
-				start,
-				end.subtract(start),
-				color,
-				(buffer, x, y, z, x1, y1, z1, red, green, blue, alpha, matrix) -> {
-					buffer.vertex(matrix, x, y, z).color(red, green, blue, alpha);
-					buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha);
-				}
-		);
+		//genericAABBRender(
+		//		VertexFormat.DrawMode.DEBUG_LINES,
+		//		VertexFormats.POSITION_COLOR,
+		//		GameRenderer::getRendertypeLinesProgram,
+		//		s,
+		//		start,
+		//		end.subtract(start),
+		//		color,
+		//		(buffer, x, y, z, x1, y1, z1, red, green, blue, alpha, matrix) -> {
+		//			buffer.vertex(matrix, x, y, z).color(red, green, blue, alpha);
+		//			buffer.vertex(matrix, x1, y1, z1).color(red, green, blue, alpha);
+		//		}
+		//);
 
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 		RenderSystem.disableBlend();
@@ -361,7 +361,7 @@ public final class RenderUtils {
 		runner.accept(bb);
 
 		setup();
-		RenderSystem.setShader(() -> shader);
+		RenderSystem.setShader(shader);
 		BufferRenderer.drawWithGlobalProgram(bb.end());
 		cleanup();
 	}
