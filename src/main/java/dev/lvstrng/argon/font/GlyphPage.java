@@ -152,7 +152,7 @@ public final class GlyphPage {
 		float height = glyph.height;
 
 		//getPositionColorTexProgram
-		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR);
 		bindTexture();
 
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
