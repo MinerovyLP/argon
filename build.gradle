@@ -60,8 +60,10 @@ java {
 }
 
 jar {
+    archiveBaseName.set(project.archives_base_name)
+    
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${archiveBaseName.get()}" }
     }
 
     // Include JARs from lib/ directory in the final JAR
