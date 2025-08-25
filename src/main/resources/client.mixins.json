@@ -17,7 +17,6 @@
     "ClientPlayerInteractionManagerAccessor",
     "ClientPlayerInteractionManagerMixin",
     "FrustumAccessor",
-    "GameRendererMixin",
     "HandledScreenMixin",
     "InGameHudMixin",
     "KeyBindingAccessor",
@@ -29,7 +28,6 @@
     "MouseMixin",
     "OtherClientPlayerEntityAccessor",
     "ScreenMixin",
-    "ShaderProgramAccessor",
     "WorldRendererAccessor"
   ],
   "injectors": {
