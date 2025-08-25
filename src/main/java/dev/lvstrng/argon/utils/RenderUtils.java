@@ -54,7 +54,7 @@ public final class RenderUtils {
 
 	public static void unscaledProjection() {
 		projectiontype = RenderSystem.getProjectionType();
-		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), ProjectionType.ORTHOGRAPHIC);
+		RenderSystem.setProjectionMatrix(new Matrix4f().setOrtho(0, mc.getWindow().getFramebufferWidth(), mc.getWindow().getFramebufferHeight(), 0, 1000, 21000), ProjectionType.PERSPECTIVE);
 		rendering3D = false;
 	}
 
