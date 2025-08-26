@@ -73,7 +73,7 @@ public final class ClickGui extends Screen {
 				window.updatePosition(mouseX, mouseY, delta);
 			}
 
-			//RenderUtils.scaledProjection();
+			RenderUtils.scaledProjection();
 		}
 	}
 
