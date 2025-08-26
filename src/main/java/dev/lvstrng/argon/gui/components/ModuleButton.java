@@ -89,9 +89,10 @@ public final class ModuleButton {
 		int parentCenterX = parent.getX() + parent.getWidth() / 2;
 		int textCenterX = parentCenterX - totalWidth / 2;
 
-        RenderSystem.disableBlend();
+        context.getMatrices().push();
+        context.getMatrices().translate(0, 0, 300);
 		TextRenderer.drawString(nameChars, context, textCenterX, parent.getY() + offset + 8, defaultColor.getRGB());
-        RenderSystem.enableBlend();
+        context.getMatrices().pop();
 
 		renderHover(context, mouseX, mouseY, delta);
 		renderSettings(context, mouseX, mouseY, delta);
@@ -118,9 +119,10 @@ public final class ModuleButton {
 					10
 			);
 
-            RenderSystem.disableBlend();
+            context.getMatrices().push();
+            context.getMatrices().translate(0, 0, 300);
 			TextRenderer.drawString(chars, context, textCenter, (mc.getWindow().getFramebufferHeight() / 2) + 300, Color.WHITE.getRGB());
-            RenderSystem.enableBlend();
+            context.getMatrices().pop();
 		}
 	}
 
