@@ -248,18 +248,13 @@ public final class GlyphPageFontRenderer {
 		return i;
 	}
 
-    public int drawString(MatrixStack matrices, CharSequence text, float x, float y, int z, int color, boolean dropShadow) {
+    public int drawString(MatrixStack matrices, CharSequence text, float x, float y, int z, int color) {
 		this.resetStyles();
 		int i;
 
         matrices.translate(0, 0, z);
 
-		if (dropShadow) {
-			i = this.renderString(matrices, text, x + 1.0F, y + 1.0F, color, true);
-			i = Math.max(i, this.renderString(matrices, text, x, y, color, false));
-		} else {
-			i = this.renderString(matrices, text, x, y, color, false);
-		}
+		i = this.renderString(matrices, text, x, y, color, false);
 
 		return i;
 	}
