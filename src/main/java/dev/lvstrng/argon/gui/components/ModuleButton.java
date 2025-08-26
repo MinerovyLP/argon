@@ -71,7 +71,7 @@ public final class ModuleButton {
 
 		Color toColor = module.isEnabled() ? Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)) : Color.WHITE;
 
-		//if (defaultColor != toColor)
+		if (defaultColor != toColor)
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
@@ -89,7 +89,7 @@ public final class ModuleButton {
 		int parentCenterX = parent.getX() + parent.getWidth() / 2;
 		int textCenterX = parentCenterX - totalWidth / 2;
 
-		TextRenderer.drawString(nameChars, context, textCenterX, parent.getY() + offset + 8, defaultColor.getRGB());
+		TextRenderer.drawString(nameChars, context, textCenterX, parent.getY() + offset + 8, Color.WHITE.getRGB());
 
 		renderHover(context, mouseX, mouseY, delta);
 		renderSettings(context, mouseX, mouseY, delta);
