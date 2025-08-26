@@ -76,7 +76,7 @@ public final class ModuleButton {
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
-			context.fill(RenderLayer.getTextBackground(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
+			context.fill(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, -100, currentColor.getRGB());
 			context.fillGradient(parent.getX(), parent.getY() + offset, parent.getX() + 2, parent.getY() + parent.getHeight() + offset, Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)).getRGB(), Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module) + 1).getRGB());
 		} else {
 			RenderUtils.renderRoundedQuad(context.getMatrices(), currentColor, parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, 0, 0, 3, animation.getValue() > 30 ? 0 : ClickGUI.roundQuads.getValueInt(), 50);
@@ -90,7 +90,7 @@ public final class ModuleButton {
 		int parentCenterX = parent.getX() + parent.getWidth() / 2;
 		int textCenterX = parentCenterX - totalWidth / 2;
 
-		TextRenderer.drawString(nameChars, context, textCenterX, parent.getY() + offset + 8, defaultColor.getRGB());
+		TextRenderer.drawStringTop(nameChars, context, textCenterX, parent.getY() + offset + 8, defaultColor.getRGB(), 500);
 
 		renderHover(context, mouseX, mouseY, delta);
 		renderSettings(context, mouseX, mouseY, delta);
@@ -117,7 +117,7 @@ public final class ModuleButton {
 					10
 			);
 
-			TextRenderer.drawString(chars, context, textCenter, (mc.getWindow().getFramebufferHeight() / 2) + 300, Color.WHITE.getRGB());;
+			TextRenderer.drawStringTop(chars, context, textCenter, (mc.getWindow().getFramebufferHeight() / 2) + 300, Color.WHITE.getRGB(), 500);
 		}
 	}
 

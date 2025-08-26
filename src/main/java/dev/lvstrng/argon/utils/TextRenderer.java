@@ -17,6 +17,13 @@ public final class TextRenderer {
 		else drawMinecraftText(string, context, x, y, color);
 	}
 
+    public static void drawStringTop(CharSequence string, DrawContext context, int x, int y, int z, int color) {
+		boolean custom = ClickGUI.customFont.getValue();
+		if (custom)
+			Fonts.QUICKSAND.drawString(context.getMatrices(), string, x, y - 8, color, z);
+		else drawMinecraftText(string, context, x, y, color);
+	}
+
 	public static int getWidth(CharSequence string) {
 		boolean custom = ClickGUI.customFont.getValue();
 		if (custom)
