@@ -248,7 +248,7 @@ public final class GlyphPageFontRenderer {
 		return i;
 	}
 
-    public int drawString(MatrixStack matrices, CharSequence text, float x, float y, int color, int z, boolean dropShadow) {
+    public int drawString(MatrixStack matrices, CharSequence text, float x, float y, int z, int color, boolean dropShadow) {
 		this.resetStyles();
 		int i;
 

@@ -20,7 +20,7 @@ public final class TextRenderer {
     public static void drawStringTop(CharSequence string, DrawContext context, int x, int y, int z, int color) {
 		boolean custom = ClickGUI.customFont.getValue();
 		if (custom)
-			Fonts.QUICKSAND.drawString(context.getMatrices(), string, x, y - 8, color, z);
+			Fonts.QUICKSAND.drawString(context.getMatrices(), string, x, y - 8, z, color);
 		else drawMinecraftText(string, context, x, y, color);
 	}
 
