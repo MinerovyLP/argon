@@ -10,6 +10,7 @@ import dev.lvstrng.argon.module.setting.*;
 import dev.lvstrng.argon.utils.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public final class ModuleButton {
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
-			context.fill(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
+			context.fill(RenderLayer.TEXT_BACKGROUND, parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
 			context.fillGradient(parent.getX(), parent.getY() + offset, parent.getX() + 2, parent.getY() + parent.getHeight() + offset, Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)).getRGB(), Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module) + 1).getRGB());
 		} else {
 			RenderUtils.renderRoundedQuad(context.getMatrices(), currentColor, parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, 0, 0, 3, animation.getValue() > 30 ? 0 : ClickGUI.roundQuads.getValueInt(), 50);
