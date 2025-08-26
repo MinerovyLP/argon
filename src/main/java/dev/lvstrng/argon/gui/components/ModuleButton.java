@@ -90,7 +90,7 @@ public final class ModuleButton {
 		int parentCenterX = parent.getX() + parent.getWidth() / 2;
 		int textCenterX = parentCenterX - totalWidth / 2;
 
-		TextRenderer.drawStringTop(nameChars, context, textCenterX, parent.getY() + offset + 8, 500, defaultColor.getRGB());
+		TextRenderer.drawStringTop(nameChars, context, textCenterX, parent.getY() + offset + 8, defaultColor.getRGB(), 500);
 
 		renderHover(context, mouseX, mouseY, delta);
 		renderSettings(context, mouseX, mouseY, delta);
@@ -117,7 +117,7 @@ public final class ModuleButton {
 					10
 			);
 
-			TextRenderer.drawStringTop(chars, context, textCenter, (mc.getWindow().getFramebufferHeight() / 2) + 300, 500, Color.WHITE.getRGB());
+			TextRenderer.drawStringTop(chars, context, textCenter, (mc.getWindow().getFramebufferHeight() / 2) + 300, Color.WHITE.getRGB(), 500);
 		}
 	}
 
