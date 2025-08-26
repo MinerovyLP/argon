@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "immediatelyfast",
-  "version": "1.2.11+1.21",
+  "version": "1.8.1+1.21.4",
   "name": "ImmediatelyFast",
   "description": "Speed up and optimize immediate mode rendering in Minecraft",
   "authors": [
-    "RK_01"
+    "RaphiMC"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/immediatelyfast",
