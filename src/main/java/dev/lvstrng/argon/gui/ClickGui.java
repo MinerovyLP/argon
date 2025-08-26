@@ -5,6 +5,7 @@ import dev.lvstrng.argon.module.Category;
 import dev.lvstrng.argon.module.modules.client.ClickGUI;
 import dev.lvstrng.argon.utils.ColorUtils;
 import dev.lvstrng.argon.utils.RenderUtils;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
