@@ -8,7 +8,6 @@ import dev.lvstrng.argon.module.modules.client.ClickGUI;
 import dev.lvstrng.argon.utils.*;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.math.MathHelper;
-import com.mojang.blaze3d.systems.RenderSystem;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
