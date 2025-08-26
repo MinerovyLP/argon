@@ -12,13 +12,9 @@ public final class TextRenderer {
 
 	public static void drawString(CharSequence string, DrawContext context, int x, int y, int color) {
 		boolean custom = ClickGUI.customFont.getValue();
-        MatrixStack matrices = context.getMatrices();
-        matrices.push();
-        matrices.translate(0, 0, 500);
 		if (custom)
 			Fonts.QUICKSAND.drawString(context.getMatrices(), string, x, y - 8, color);
 		else drawMinecraftText(string, context, x, y, color);
-        matrices.pop();
 	}
 
 	public static int getWidth(CharSequence string) {
@@ -30,13 +26,9 @@ public final class TextRenderer {
 
 	public static void drawCenteredString(CharSequence string, DrawContext context, int x, int y, int color) {
 		boolean custom = ClickGUI.customFont.getValue();
-        MatrixStack matrices = context.getMatrices();
-        matrices.push();
-        matrices.translate(0, 0, 500);
 		if (custom)
 			Fonts.QUICKSAND.drawString(context.getMatrices(), string, (x - (Fonts.QUICKSAND.getStringWidth(string) / 2)), y - 8, color);
 		else drawCenteredMinecraftText(string, context, x, y, color);
-        matrices.pop();
 	}
 
 	public static void drawLargeString(CharSequence string, DrawContext context, int x, int y, int color) {

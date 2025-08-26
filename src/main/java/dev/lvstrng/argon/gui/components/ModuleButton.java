@@ -71,7 +71,7 @@ public final class ModuleButton {
 
 		Color toColor = module.isEnabled() ? Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)) : Color.WHITE;
 
-		if (defaultColor != toColor)
+		//if (defaultColor != toColor)
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
