@@ -64,8 +64,8 @@ public final class ClickGui extends Screen {
 				context.fill(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight(), currentColor.getRGB());
 
 			RenderUtils.unscaledProjection();
-			//mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
-			//mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+			mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+			mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
 			super.render(context, mouseX, mouseY, delta);
 
 			for (Window window : windows) {
@@ -87,8 +87,8 @@ public final class ClickGui extends Screen {
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		//mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
-		//mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+		mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+		mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
 
 		for (Window window : windows)
 			window.mouseClicked(mouseX, mouseY, button);
@@ -98,8 +98,8 @@ public final class ClickGui extends Screen {
 
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
-		//mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
-		//mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+		mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
+		mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
 		for (Window window : windows)
 			window.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
 
@@ -109,7 +109,7 @@ public final class ClickGui extends Screen {
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
 		MinecraftClient mc = MinecraftClient.getInstance();
-		//mouseY *= mc.getWindow().getScaleFactor();
+		mouseY *= mc.getWindow().getScaleFactor();
 
 		for (Window window : windows)
 			window.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
