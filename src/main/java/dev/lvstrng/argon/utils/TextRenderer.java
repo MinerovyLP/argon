@@ -14,7 +14,7 @@ public final class TextRenderer {
 		boolean custom = ClickGUI.customFont.getValue();
         MatrixStack matrices = context.getMatrices();
         matrices.push();
-        matrices.translate(0, 0, 200);
+        matrices.translate(0, 0, 20000);
 		if (custom)
 			Fonts.QUICKSAND.drawString(context.getMatrices(), string, x, y - 8, color);
 		else drawMinecraftText(string, context, x, y, color);
@@ -32,7 +32,7 @@ public final class TextRenderer {
 		boolean custom = ClickGUI.customFont.getValue();
         MatrixStack matrices = context.getMatrices();
         matrices.push();
-        matrices.translate(0, 0, 200);
+        matrices.translate(0, 0, 20000);
 		if (custom)
 			Fonts.QUICKSAND.drawString(context.getMatrices(), string, (x - (Fonts.QUICKSAND.getStringWidth(string) / 2)), y - 8, color);
 		else drawCenteredMinecraftText(string, context, x, y, color);
