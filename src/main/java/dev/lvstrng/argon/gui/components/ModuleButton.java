@@ -55,7 +55,7 @@ public final class ModuleButton {
 		}
 	}
 
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) { 
 		if (parent.getY() + offset > MinecraftClient.getInstance().getWindow().getHeight())
 			return;
 
@@ -76,7 +76,8 @@ public final class ModuleButton {
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
-			context.fill(RenderLayer.getTextBackground(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
+			//context.fill(RenderLayer.getTextBackground(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
+            RenderUtils.renderRoundedQuad(context.getMatrices(), currentColor, parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, 0, 0, 3, animation.getValue() > 30 ? 0 : ClickGUI.roundQuads.getValueInt(), 50);
 			context.fillGradient(parent.getX(), parent.getY() + offset, parent.getX() + 2, parent.getY() + parent.getHeight() + offset, Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)).getRGB(), Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module) + 1).getRGB());
 		} else {
 			RenderUtils.renderRoundedQuad(context.getMatrices(), currentColor, parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, 0, 0, 3, animation.getValue() > 30 ? 0 : ClickGUI.roundQuads.getValueInt(), 50);
