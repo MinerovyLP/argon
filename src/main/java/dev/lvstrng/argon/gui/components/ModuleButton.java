@@ -76,7 +76,7 @@ public final class ModuleButton {
 			defaultColor = ColorUtils.smoothColorTransition(0.1F, toColor, defaultColor);
 
 		if (parent.moduleButtons.get(parent.moduleButtons.size() - 1) != this) {
-			//context.fill(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
+			//context.fill(RenderLayer.getTextBackground(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
             RenderUtils.renderQuadAbs(context.getMatrices(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentColor.getRGB());
 			context.fillGradient(parent.getX(), parent.getY() + offset, parent.getX() + 2, parent.getY() + parent.getHeight() + offset, Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)).getRGB(), Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module) + 1).getRGB());
 		} else {
@@ -133,7 +133,7 @@ public final class ModuleButton {
 			if (currentAlpha.getAlpha() != toHoverAlpha)
 				currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-			RenderUtils.renderQuadAbs(context.getMatrices(), parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentAlpha.getRGB());
+			context.fill(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + parent.getHeight() + offset, currentAlpha.getRGB());
 		}
 	}
 

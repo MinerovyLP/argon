@@ -61,7 +61,7 @@ public abstract class RenderableSetting {
 		this.width = parentX() + parentWidth();
 		this.height = parentY() + parentOffset() + offset + parentHeight();
 
-		RenderUtils.renderQuadAbs(context.getMatrices(), x, y, width, height, currentColor.getRGB());
+		context.fill(x, y, width, height, currentColor.getRGB());
 	}
 
 	private void updateMouseOver(double mouseX, double mouseY) {

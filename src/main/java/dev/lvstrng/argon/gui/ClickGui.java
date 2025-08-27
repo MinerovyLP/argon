@@ -61,7 +61,7 @@ public final class ClickGui extends Screen {
 				currentColor = ColorUtils.smoothAlphaTransition(0.05F, ClickGUI.background.getValue() ? 200 : 0, currentColor);
 
 			if (mc.currentScreen instanceof ClickGui)
-				RenderUtils.renderQuadAbs(context.getMatrices(), 0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight(), currentColor.getRGB());
+				context.fill(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight(), currentColor.getRGB());
 
 			RenderUtils.unscaledProjection();
 			mouseX *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();

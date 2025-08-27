@@ -67,7 +67,7 @@ public final class MinMaxSlider extends RenderableSetting {
             if (currentAlpha.getAlpha() != toHoverAlpha)
                 currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-            RenderUtils.renderQuadAbs(context.getMatrices(), parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
+            context.fill(parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
         }
     }
 
