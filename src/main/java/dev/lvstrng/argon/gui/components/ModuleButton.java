@@ -146,11 +146,11 @@ public final class ModuleButton {
 		RenderSystem.enableScissor(scissorX, scissorY, scissorWidth, scissorHeight);
 
 		for (RenderableSetting renderableSetting : settings)
-			if(animation.getValue() > parent.getHeight())
+			if(animation.getValue() > 0)
 				renderableSetting.render(context, mouseX, mouseY, delta);
 
 		for (RenderableSetting renderableSetting : settings) {
-			if(animation.getValue() > parent.getHeight()) {
+			if(animation.getValue() > 0) {
 				if (renderableSetting instanceof Slider slider) {
 					RenderUtils.renderCircle(context.getMatrices(), new Color(0, 0, 0, 170), (slider.parentX() + (Math.max(slider.lerpedOffsetX, 2.5))), slider.parentY() + slider.offset + slider.parentOffset() + 27.5, 6, 15);
 					RenderUtils.renderCircle(context.getMatrices(), slider.currentColor1.brighter(), (slider.parentX() + (Math.max(slider.lerpedOffsetX, 2.5))) , slider.parentY() + slider.offset + slider.parentOffset() + 27.5, 5, 15);
