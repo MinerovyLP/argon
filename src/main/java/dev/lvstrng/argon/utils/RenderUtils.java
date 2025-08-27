@@ -236,6 +236,31 @@ public final class RenderUtils {
 		matrices.pop();
 	}
 
+    public static void renderQuadAbs(MatrixStack matrices, float x1, float y1, float x2, float y2, int color) {
+
+	    float alpha = ((color >> 24) & 0xFF) / 255f;
+	    float red   = ((color >> 16) & 0xFF) / 255f;
+	    float green = ((color >> 8) & 0xFF) / 255f;
+	    float blue  = (color & 0xFF) / 255f;
+
+	    Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+	    Tessellator tessellator = Tessellator.getInstance();
+	    RenderSystem.enableBlend();
+	    RenderSystem.defaultBlendFunc();
+	    RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+
+	    BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+
+	    bufferBuilder.vertex(matrix, x1, y1, 0.0F).color(red, green, blue, alpha);
+	    bufferBuilder.vertex(matrix, x1, y2, 0.0F).color(red, green, blue, alpha);
+	    bufferBuilder.vertex(matrix, x2, y2, 0.0F).color(red, green, blue, alpha);
+	    bufferBuilder.vertex(matrix, x2, y1, 0.0F).color(red, green, blue, alpha);
+	    BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+
+	    RenderSystem.disableBlend();
+    }
+
 	public static void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double corner1, double corner2, double corner3, double corner4, double samples) {
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 
