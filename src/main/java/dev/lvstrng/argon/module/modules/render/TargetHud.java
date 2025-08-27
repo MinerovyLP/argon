@@ -96,7 +96,7 @@ public final class TargetHud extends Module implements HudListener, PacketSendLi
 			}
 
 			TextRenderer.drawString("Health: " + Math.round((player.getHealth() + player.getAbsorptionAmount())), context, x + 5, y + 65, Color.GREEN.getRGB());
-			context.fill(x, y + 200, x + 4, (y + 200) - Math.min(Math.round((player.getHealth() + player.getAbsorptionAmount()) * 5), 171), Color.GREEN.darker().getRGB());
+			RenderUtils.renderQuadAbs(context.getMatrices(), x, y + 200, x + 4, (y + 200) - Math.min(Math.round((player.getHealth() + player.getAbsorptionAmount()) * 5), 171), Color.GREEN.darker().getRGB());
 			//RenderUtils.renderRoundedOutline(context, Color.green, x, y + 200, x, (y + 200) - Math.min(Math.round((player.getHealth() + player.getAbsorptionAmount()) * 5), 174), 0, 0, 0, 0, 3, 30);
 
 			TextRenderer.drawString("Invisible: " + (player.isInvisible() ? "Yes" : "No"), context, x + 5, y + 95, Color.WHITE.getRGB());
@@ -111,7 +111,7 @@ public final class TargetHud extends Module implements HudListener, PacketSendLi
 
 				TextRenderer.drawString(chars, context, charOff1, y + 65, Color.WHITE.getRGB());
 				//TextRenderer.drawString("Damage Tick: " + player.hurtTime, context, x + 125, y + 65, Color.WHITE.getRGB());
-				context.fill(x + 125, y + 80, (x + 125) + (player.hurtTime * 15), y + 83, getDamageTickColor(player.hurtTime).getRGB());
+				RenderUtils.renderQuadAbs(context.getMatrices(), x + 125, y + 80, (x + 125) + (player.hurtTime * 15), y + 83, getDamageTickColor(player.hurtTime).getRGB());
 			}
 			matrixStack.pop();
 		} else {
