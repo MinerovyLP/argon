@@ -237,7 +237,6 @@ public final class RenderUtils {
 	}
 
     public static void renderQuadAbs(MatrixStack matrices, float x1, float y1, float x2, float y2, int color) {
-
 	    float alpha = ((color >> 24) & 0xFF) / 255f;
 	    float red   = ((color >> 16) & 0xFF) / 255f;
 	    float green = ((color >> 8) & 0xFF) / 255f;
