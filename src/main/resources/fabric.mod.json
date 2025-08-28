@@ -1,22 +1,45 @@
 {
   "schemaVersion": 1,
-  "id": "IRC",
-  "version": "1.0.0+1.21",
-  "name": "IRC",
-  "description": "in-game IRC chat",
+  "id": "immediatelyfast",
+  "version": "1.8.1+1.21.4",
+  "name": "ImmediatelyFast",
+  "description": "Speed up and optimize immediate mode rendering in Minecraft",
   "authors": [
-    "MinerovyLP"
+    "RaphiMC"
   ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/immediatelyfast",
+    "sources": "https://github.com/RaphiMC/ImmediatelyFast",
+    "issues": "https://github.com/RaphiMC/ImmediatelyFast/issues"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/immediatelyfast/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "dev.irc.IRC"
+    "main": [
+      "dev.lvstrng.argon.Main"
     ]
   },
+  "mixins": [
+    "client.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "fabric-api": "*",
     "minecraft": "~1.21"
+  },
+  "recommends": {
+    "sodium": "*"
+  },
+  "conflicts": {
+    "slight-gui-modifications": "*",
+    "vulkanmod": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/dCzT9XHEWu"
+      }
+    }
   }
 }
