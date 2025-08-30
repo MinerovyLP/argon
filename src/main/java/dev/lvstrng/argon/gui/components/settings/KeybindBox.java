@@ -7,6 +7,7 @@ import dev.lvstrng.argon.utils.ColorUtils;
 import dev.lvstrng.argon.utils.KeyUtils;
 import dev.lvstrng.argon.utils.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import dev.lvstrng.argon.utils.RenderUtils;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -86,7 +87,7 @@ public final class KeybindBox extends RenderableSetting {
 			if (currentAlpha.getAlpha() != toHoverAlpha)
 				currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-			context.fill(parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
+			RenderUtils.renderQuadAbs(context.getMatrices(), parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
 		}
 	}
 }
