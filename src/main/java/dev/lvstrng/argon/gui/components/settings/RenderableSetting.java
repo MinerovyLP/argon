@@ -80,7 +80,7 @@ public abstract class RenderableSetting {
 
 			RenderUtils.renderRoundedQuad(
 					context.getMatrices(),
-					new Color(100, 100, 100, ClickGUI.alphaWindow.getValueInt()),
+					currentColor.getRGB(),
 					textCenter - 5,
 					(mc.getWindow().getHeight() / 2) + 294,
 					textCenter + tw + 5,
@@ -112,10 +112,10 @@ public abstract class RenderableSetting {
 			currentColor = new Color(0, 0, 0, 0);
 		else currentColor = new Color(0, 0, 0, currentColor.getAlpha());
 
-		int toAlpha = 120;
+		//int toAlpha = 120;
 
-		if (currentColor.getAlpha() != toAlpha)
-			currentColor = ColorUtils.smoothAlphaTransition(0.05F, toAlpha, currentColor);
+		if (currentColor.getAlpha() != ClickGUI.alphaWindow.getValueInt())
+			currentColor = ColorUtils.smoothAlphaTransition(0.05F, ClickGUI.alphaWindow.getValueInt(), currentColor);
 	}
 
 	public void mouseClicked(double mouseX, double mouseY, int button) {

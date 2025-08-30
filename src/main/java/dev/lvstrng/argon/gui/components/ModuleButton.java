@@ -66,9 +66,9 @@ public final class ModuleButton {
 			currentColor = new Color(0, 0, 0, 0);
 		else currentColor = new Color(0, 0, 0, currentColor.getAlpha());
 
-		int toAlpha = 170;
+		//int toAlpha = 170;
 
-		currentColor = ColorUtils.smoothAlphaTransition(0.05F, toAlpha, currentColor);
+		currentColor = ColorUtils.smoothAlphaTransition(0.05F, ClickGUI.alphaWindow.getValueInt(), currentColor);
 
 		Color toColor = module.isEnabled() ? Utils.getMainColor(255, Argon.INSTANCE.getModuleManager().getModulesInCategory(module.getCategory()).indexOf(module)) : Color.WHITE;
 
