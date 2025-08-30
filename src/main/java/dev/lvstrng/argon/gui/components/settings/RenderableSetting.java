@@ -1,5 +1,6 @@
 package dev.lvstrng.argon.gui.components.settings;
 
+import dev.lvstrng.argon.module.modules.client.ClickGUI;
 import dev.lvstrng.argon.gui.components.ModuleButton;
 import dev.lvstrng.argon.module.setting.Setting;
 import dev.lvstrng.argon.utils.ColorUtils;
