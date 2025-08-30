@@ -7,6 +7,7 @@ import dev.lvstrng.argon.utils.ColorUtils;
 import dev.lvstrng.argon.utils.MathUtils;
 import dev.lvstrng.argon.utils.TextRenderer;
 import dev.lvstrng.argon.utils.Utils;
+import dev.lvstrng.argon.utils.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
@@ -67,7 +68,7 @@ public final class MinMaxSlider extends RenderableSetting {
             if (currentAlpha.getAlpha() != toHoverAlpha)
                 currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-            context.fill(parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
+            RenderUtils.renderQuadAbs(context.getMatrices(), parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
         }
     }
 
