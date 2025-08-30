@@ -103,7 +103,7 @@ public final class HUD extends Module implements HudListener {
 						int charOffset = 6 + TextRenderer.getWidth(module.getName());
 
 						RenderUtils.renderRoundedQuad(context.getMatrices(), new Color(0, 0, 0, 175), 0, offset - 4, (charOffset + 5), offset + (mc.textRenderer.fontHeight * 2) - 1, 0, 0, 0, 5, 10);
-						context.fillGradient(0, offset - 4, 2, offset + (mc.textRenderer.fontHeight * 2), Utils.getMainColor(255, (enabledModules.indexOf(module))).getRGB(), Utils.getMainColor(255, (enabledModules.indexOf(module)) + 1).getRGB());
+						RenderUtils.renderQuadGradient(context.getMatrices(), 0, offset - 4, 2, offset + (mc.textRenderer.fontHeight * 2), Utils.getMainColor(255, (enabledModules.indexOf(module))).getRGB(), Utils.getMainColor(255, (enabledModules.indexOf(module)) + 1).getRGB());
 
 						int charOffset2 = customFont ? 5 : 8;
 

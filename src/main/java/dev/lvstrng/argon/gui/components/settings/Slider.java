@@ -56,7 +56,7 @@ public final class Slider extends RenderableSetting {
 
 		offsetX = (setting.getValue() - setting.getMin()) / (setting.getMax() - setting.getMin()) * parentWidth();
 		lerpedOffsetX = MathUtils.goodLerp((float) (0.5 * delta), lerpedOffsetX, offsetX);
-		context.fillGradient(parentX(), parentY() + offset + parentOffset() + 25, (int) (parentX() + lerpedOffsetX), parentY() + offset + parentOffset() + parentHeight(), currentColor1.getRGB(), currentColor2.getRGB());
+		RenderUtils.renderQuadGradient(context.getMatrices(), parentX(), parentY() + offset + parentOffset() + 25, (int) (parentX() + lerpedOffsetX), parentY() + offset + parentOffset() + parentHeight(), currentColor1.getRGB(), currentColor2.getRGB());
 
 		TextRenderer.drawString(setting.getName() + ": " + setting.getValue(), context, parentX() + 5, (parentY() + parentOffset() + offset) + 9, new Color(245, 245, 245, 255).getRGB());
 

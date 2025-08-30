@@ -30,9 +30,9 @@ public final class CheckBox extends RenderableSetting {
 
 		TextRenderer.drawString(chars, context, nameOffset, (parentY() + parentOffset() + offset) + 9, new Color(245, 245, 245, 255).getRGB());
 
-		context.fillGradient((parentX() + 5), (parentY() + parentOffset() + offset) + 5, (parentX() + 25), (parentY() + parentOffset() + offset + parentHeight()) - 5, Utils.getMainColor(255, parent.settings.indexOf(this)).getRGB(), Utils.getMainColor(255, parent.settings.indexOf(this) + 1).getRGB());
+		RenderUtils.renderQuadGradient(context.getMatrices(), (parentX() + 5), (parentY() + parentOffset() + offset) + 5, (parentX() + 25), (parentY() + parentOffset() + offset + parentHeight()) - 5, Utils.getMainColor(255, parent.settings.indexOf(this)).getRGB(), Utils.getMainColor(255, parent.settings.indexOf(this) + 1).getRGB());
 		RenderUtils.renderQuadAbs(context.getMatrices(), (parentX() + 7), (parentY() + parentOffset() + offset) + 7, (parentX() + 23), (parentY() + parentOffset() + offset + parentHeight()) - 7, Color.darkGray.getRGB());
-		context.fillGradient((parentX() + 9), (parentY() + parentOffset() + offset) + 9, (parentX() + 21), (parentY() + parentOffset() + offset + parentHeight()) - 9, setting.getValue() ? Utils.getMainColor(255, parent.settings.indexOf(this)).getRGB() : Color.darkGray.getRGB(), setting.getValue() ? Utils.getMainColor(255, parent.settings.indexOf(this) + 1).getRGB() : Color.darkGray.getRGB());
+		RenderUtils.renderQuadGradient(context.getMatrices(), (parentX() + 9), (parentY() + parentOffset() + offset) + 9, (parentX() + 21), (parentY() + parentOffset() + offset + parentHeight()) - 9, setting.getValue() ? Utils.getMainColor(255, parent.settings.indexOf(this)).getRGB() : Color.darkGray.getRGB(), setting.getValue() ? Utils.getMainColor(255, parent.settings.indexOf(this) + 1).getRGB() : Color.darkGray.getRGB());
 
 		if (!parent.parent.dragging) {
 			int toHoverAlpha = isHovered(mouseX, mouseY) ? 15 : 0;

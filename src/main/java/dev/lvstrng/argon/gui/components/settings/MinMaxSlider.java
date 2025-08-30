@@ -49,7 +49,7 @@ public final class MinMaxSlider extends RenderableSetting {
 
         CharSequence str = setting.getName() + ": " + (setting.getMinValue() == setting.getMaxValue() ? setting.getMinValue() : setting.getMinValue() + " - " + setting.getMaxValue());
 
-        context.fillGradient((int) (parentX() + lerpedOffsetMinX), parentY() + offset + parentOffset() + 25, (int) (parentX() + lerpedOffsetMinX + getLength()), parentY() + offset + parentOffset() + parentHeight(), currentColor1.getRGB(), currentColor2.getRGB());
+        RenderUtils.renderQuadGradient(context.getMatrices(), (int) (parentX() + lerpedOffsetMinX), parentY() + offset + parentOffset() + 25, (int) (parentX() + lerpedOffsetMinX + getLength()), parentY() + offset + parentOffset() + parentHeight(), currentColor1.getRGB(), currentColor2.getRGB());
 
         float scalable = 0.8F;
         matrices.push();
