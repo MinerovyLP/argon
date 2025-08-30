@@ -80,7 +80,7 @@ public abstract class RenderableSetting {
 
 			RenderUtils.renderRoundedQuad(
 					context.getMatrices(),
-					currentColor.getRGB(),
+					currentColor,
 					textCenter - 5,
 					(mc.getWindow().getHeight() / 2) + 294,
 					textCenter + tw + 5,
