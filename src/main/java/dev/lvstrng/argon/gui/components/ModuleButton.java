@@ -109,7 +109,7 @@ public final class ModuleButton {
 
 			RenderUtils.renderRoundedQuad(
 					context.getMatrices(),
-					new Color(100, 100, 100, 100),
+					currentColor,
 					textCenter - 5,
 					((double) mc.getWindow().getFramebufferHeight() / 2) + 294,
 					textCenter + tw + 5,
