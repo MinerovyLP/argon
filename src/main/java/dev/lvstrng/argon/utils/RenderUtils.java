@@ -260,6 +260,35 @@ public final class RenderUtils {
 	    RenderSystem.disableBlend();
     }
 
+    public static void renderQuadGradient(MatrixStack matrices, float x1, float y1, float x2, float y2, int colorStart, int colorEnd) {
+        float a1 = ((colorStart >> 24) & 0xFF) / 255f;
+        float r1 = ((colorStart >> 16) & 0xFF) / 255f;
+        float g1 = ((colorStart >> 8) & 0xFF) / 255f;
+        float b1 = (colorStart & 0xFF) / 255f;
+
+        float a2 = ((colorEnd >> 24) & 0xFF) / 255f;
+        float r2 = ((colorEnd >> 16) & 0xFF) / 255f;
+        float g2 = ((colorEnd >> 8) & 0xFF) / 255f;
+        float b2 = (colorEnd & 0xFF) / 255f;
+
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+
+        Tessellator tessellator = Tessellator.getInstance();
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+
+        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+
+        bufferBuilder.vertex(matrix, x2, y1, 0.0F).color(r1, g1, b1, a1);
+        bufferBuilder.vertex(matrix, x1, y1, 0.0F).color(r1, g1, b1, a1);
+        bufferBuilder.vertex(matrix, x1, y2, 0.0F).color(r2, g2, b2, a2);
+        bufferBuilder.vertex(matrix, x2, y2, 0.0F).color(r2, g2, b2, a2);
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        
+        RenderSystem.disableBlend();
+    }
+
 	public static void renderRoundedQuadInternal(Matrix4f matrix, float cr, float cg, float cb, float ca, double fromX, double fromY, double toX, double toY, double corner1, double corner2, double corner3, double corner4, double samples) {
 		BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 
