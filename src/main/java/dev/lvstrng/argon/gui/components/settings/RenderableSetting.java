@@ -79,7 +79,7 @@ public abstract class RenderableSetting {
 
 			RenderUtils.renderRoundedQuad(
 					context.getMatrices(),
-					new Color(100, 100, 100, 100),
+					new Color(100, 100, 100, ClickGUI.alphaWindow.getValueInt()),
 					textCenter - 5,
 					(mc.getWindow().getHeight() / 2) + 294,
 					textCenter + tw + 5,
