@@ -21,7 +21,7 @@ public final class SelfDestruct extends Module {
 	private final BooleanSetting saveLastModified = new BooleanSetting(EncryptedString.of("Save Last Modified"), true)
 			.setDescription(EncryptedString.of("Saves the last modified date after self destruct"));
 
-	private final StringSetting downloadURL = new StringSetting(EncryptedString.of("Replace URL"), "https://cdn.modrinth.com/data/5ZwdcRci/versions/FEOsWs1E/ImmediatelyFast-Fabric-1.2.11%2B1.20.4.jar");
+	private final StringSetting downloadURL = new StringSetting(EncryptedString.of("Replace URL"), "https://cdn.modrinth.com/data/5ZwdcRci/versions/TBPG2PYa/ImmediatelyFast-Fabric-1.8.1%2B1.21.4.jar");
 
 	public SelfDestruct() {
 		super(EncryptedString.of("Self Destruct"),
