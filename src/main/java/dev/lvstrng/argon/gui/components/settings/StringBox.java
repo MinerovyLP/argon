@@ -39,7 +39,7 @@ public final class StringBox extends RenderableSetting {
             if (currentAlpha.getAlpha() != toHoverAlpha)
                 currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-            RenderUtils.renderQuadAbs(context.getMatrices(), parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
+            context.fill(parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
         }
     }
 
@@ -56,7 +56,7 @@ public final class StringBox extends RenderableSetting {
                     mouseY *= (int) MinecraftClient.getInstance().getWindow().getScaleFactor();
                     super.render(context, mouseX, mouseY, delta);
 
-                    RenderUtils.renderQuadAbs(context.getMatrices(), 0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight(), new Color(0, 0, 0, ClickGUI.background.getValue() ? 200 : 0).getRGB());
+                    context.fill(0, 0, mc.getWindow().getWidth(), mc.getWindow().getHeight(), new Color(0, 0, 0, ClickGUI.background.getValue() ? 200 : 0).getRGB());
 
                     int screenMidX = mc.getWindow().getWidth() / 2;
                     int screenMidY = mc.getWindow().getHeight() / 2;
@@ -69,12 +69,12 @@ public final class StringBox extends RenderableSetting {
 
                     RenderUtils.renderRoundedQuad(context.getMatrices(), new Color(0, 0, 0, ClickGUI.alphaWindow.getValueInt()), startX, startY, startX + width, screenMidY + 30, 5, 5, 0, 0, 20);
                     TextRenderer.drawCenteredString(setting.getName(), context, screenMidX, startY + 10, new Color(245, 245, 245, 255).getRGB());
-                    RenderUtils.renderQuadAbs(context.getMatrices(), startX, screenMidY, startX + width, screenMidY + 30, new Color(0, 0, 0, 120).getRGB());
+                    context.fill(startX, screenMidY, startX + width, screenMidY + 30, new Color(0, 0, 0, 120).getRGB());
 
                     RenderUtils.renderRoundedOutline(context, new Color(50, 50, 50, 255), startX + 10, screenMidY + 5, startX + (width - 10), screenMidY + 25, 5, 5, 5, 5, 2, 20);
 
                     TextRenderer.drawString(content, context, startX + 15, screenMidY + 8, new Color(245, 245, 245, 255).getRGB());
-                    RenderUtils.renderQuadAbs(context.getMatrices(), startX, screenMidY, startX + width, screenMidY + 1, Utils.getMainColor(255, 1).getRGB());
+                    context.fill(startX, screenMidY, startX + width, screenMidY + 1, Utils.getMainColor(255, 1).getRGB());
 
                     RenderUtils.scaledProjection();
                 }

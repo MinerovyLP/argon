@@ -5,7 +5,6 @@ import dev.lvstrng.argon.module.setting.ModeSetting;
 import dev.lvstrng.argon.module.setting.Setting;
 import dev.lvstrng.argon.utils.ColorUtils;
 import dev.lvstrng.argon.utils.TextRenderer;
-import dev.lvstrng.argon.utils.RenderUtils;
 import net.minecraft.client.gui.DrawContext;
 import org.lwjgl.glfw.GLFW;
 
@@ -42,7 +41,7 @@ public final class ModeBox extends RenderableSetting {
 			if (currentAlpha.getAlpha() != toHoverAlpha)
 				currentAlpha = ColorUtils.smoothAlphaTransition(0.05F, toHoverAlpha, currentAlpha);
 
-			RenderUtils.renderQuadAbs(context.getMatrices(), parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
+			context.fill(parentX(), parentY() + parentOffset() + offset, parentX() + parentWidth(), parentY() + parentOffset() + offset + parentHeight(), currentAlpha.getRGB());
 		}
 	}
 
