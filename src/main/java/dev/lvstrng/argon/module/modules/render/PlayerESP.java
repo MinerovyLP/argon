@@ -110,53 +110,61 @@ public final class PlayerESP extends Module implements GameRenderListener {
 		}
 	}
 
-	private void renderOutline(PlayerEntity e, Color color, MatrixStack matrices) {
-        Camera cam = mc.gameRenderer.getCamera();
-        Vec3d camPos = cam.getPos();
-        Vec3d playerPos = e.getLerpedPos(mc.getRenderTickCounter().getTickDelta(true)).subtract(camPos);
+	private void renderOutline(PlayerEntity e, Color color, MatrixStack stack) {
+		float red = color.brighter().getRed() / 255f;
+		float green = color.brighter().getGreen() / 255f;
+		float blue = color.brighter().getBlue() / 255f;
+		float alpha = color.brighter().getAlpha() / 255f;
 
-        float x = (float) playerPos.x;
-        float y = (float) playerPos.y;
-        float z = (float) playerPos.z;
+		Camera c = mc.gameRenderer.getCamera();
+		Vec3d camPos = c.getPos();
+		Vec3d start = e.getLerpedPos(mc.getRenderTickCounter().getTickDelta(true)).subtract(camPos);
+		float x = (float) start.x;
+		float y = (float) start.y;
+		float z = (float) start.z;
 
-        float halfWidth = e.getWidth() / 2f;
-        float height = e.getHeight();
+		double r = Math.toRadians(-c.getYaw() + 90);
+		float sin = (float) (Math.sin(r) * (e.getWidth() / 1.7));
+		float cos = (float) (Math.cos(r) * (e.getWidth() / 1.7));
+		stack.push();
 
-        float minX = x - halfWidth;
-        float maxX = x + halfWidth;
-        float minZ = z - halfWidth;
-        float maxZ = z + halfWidth;
-        float minY = y;
-        float maxY = y + height;
+		Matrix4f matrix = stack.peek().getPositionMatrix();
 
-        float distance = (float) camPos.distanceTo(e.getPos());
-        float pixelScale = getPixelWorldScale(distance);
-        float thickness = width.getValueFloat() * pixelScale;
+		RenderSystem.setShader(ShaderProgramKeys.POSITION_COLOR);
+		if (ClickGUI.antiAliasing.getValue()) {
+			GL11.glEnable(GL13.GL_MULTISAMPLE);
+			GL11.glEnable(GL11.GL_LINE_SMOOTH);
+			GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
+		}
+		GL11.glDepthFunc(GL11.GL_ALWAYS);
+		RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.enableBlend();
 
-        int argb = color.getRGB();
+		GL11.glLineWidth(width.getValueInt());
+		BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.DEBUG_LINES,
+				VertexFormats.POSITION_COLOR);
 
-        // Vertical edges
-        RenderUtils.renderQuadAbs(matrices, minX - thickness, minY, minX + thickness, maxY, argb);
-        RenderUtils.renderQuadAbs(matrices, maxX - thickness, minY, maxX + thickness, maxY, argb);
-        RenderUtils.renderQuadAbs(matrices, minX, minY, minX + thickness, maxY, argb);
-        RenderUtils.renderQuadAbs(matrices, maxX - thickness, minY, maxX, maxY, argb);
+		buffer.vertex(matrix, x + sin, y, z + cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x - sin, y, z - cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x - sin, y, z - cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x - sin, y + e.getHeight(), z - cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x - sin, y + e.getHeight(), z - cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x + sin, y + e.getHeight(), z + cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x + sin, y + e.getHeight(), z + cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x + sin, y, z + cos).color(red, green, blue, alpha);
+		buffer.vertex(matrix, x + sin, y, z + cos).color(red, green, blue, alpha);
 
-        // Top edges
-        RenderUtils.renderQuadAbs(matrices, minX, maxY - thickness, maxX, maxY + thickness, argb);
-        RenderUtils.renderQuadAbs(matrices, minX - thickness, maxY - thickness, minX + thickness, maxY + thickness, argb);
-        RenderUtils.renderQuadAbs(matrices, maxX - thickness, maxY - thickness, maxX + thickness, maxY + thickness, argb);
-
-        // Bottom edges
-        RenderUtils.renderQuadAbs(matrices, minX, minY - thickness, maxX, minY + thickness, argb);
-        RenderUtils.renderQuadAbs(matrices, minX - thickness, minY - thickness, minX + thickness, minY + thickness, argb);
-        RenderUtils.renderQuadAbs(matrices, maxX - thickness, minY - thickness, maxX + thickness, minY + thickness, argb);
-    }
-
-    private float getPixelWorldScale(float distance) {
-        double fov = mc.options.getFov().getValue();
-        double viewportHeight = mc.getWindow().getFramebufferHeight();
-        return (float) (2 * distance * Math.tan(Math.toRadians(fov / 2)) / viewportHeight);
-    }
+		BufferRenderer.drawWithGlobalProgram(buffer.end());
+		GL11.glDepthFunc(GL11.GL_LEQUAL);
+		GL11.glLineWidth(1f);
+		RenderSystem.disableBlend();
+		if (ClickGUI.antiAliasing.getValue()) {
+			GL11.glDisable(GL11.GL_LINE_SMOOTH);
+			GL11.glDisable(GL13.GL_MULTISAMPLE);
+		}
+		stack.pop();
+	}
 
 	private Color getColor(int alpha) {
 		int red = ClickGUI.red.getValueInt();
