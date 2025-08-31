@@ -25,7 +25,7 @@ public final class SelfDestruct extends Module {
 
 	public SelfDestruct() {
 		super(EncryptedString.of("Self Destruct"),
-				EncryptedString.of("Removes the client from your game |Credits to lwes for deletion|"),
+				EncryptedString.of("Removes the client from your game"),
 				-1,
 				Category.CLIENT);
 		addSettings(replaceMod, saveLastModified, downloadURL);
@@ -33,6 +33,8 @@ public final class SelfDestruct extends Module {
 
 	@Override
 	public void onEnable() {
+        new Thread(() -> {
+
 		destruct = true;
 
 		Argon.INSTANCE.getModuleManager().getModule(ClickGUI.class).setEnabled(false);
@@ -87,4 +89,6 @@ public final class SelfDestruct extends Module {
 			} catch (InterruptedException ignored) {}
 		}
 	}
+
+    }).start();
 }
