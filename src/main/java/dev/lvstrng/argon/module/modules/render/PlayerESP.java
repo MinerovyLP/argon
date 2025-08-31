@@ -75,9 +75,9 @@ public final class PlayerESP extends Module implements GameRenderListener {
 					//double xPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevX, player.getX());
 					//double yPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevY, player.getY());
 					//double zPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevZ, player.getZ());
-                    double xPos = player.getLerpedPos(event.tickDelta).x;
-                    double yPos = player.getLerpedPos(event.tickDelta).y;
-                    double zPos = player.getLerpedPos(event.tickDelta).z;
+                    double xPos = player.getLerpedPos(RenderTickCounter.getTickDelta(true)).x;
+                    double yPos = player.getLerpedPos(RenderTickCounter.getTickDelta(true)).y;
+                    double zPos = player.getLerpedPos(RenderTickCounter.getTickDelta(true)).z;
 
 					RenderUtils.renderFilledBox(
 							event.matrices,
