@@ -28,7 +28,7 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 			.setDescription(EncryptedString.of("Cancel the lagging effect when you're wearing an elytra"));
 
 	private int delay;
-	public FakeLag() {
+	public FakePositionLag() {
 		super(EncryptedString.of("Fake Lag"),
 				EncryptedString.of("Makes it impossible to aim at you by creating a lagging effect (Move Packets Only)"),
 				-1,
