@@ -27,10 +27,10 @@ import java.awt.*;
 
 public final class PlayerESP extends Module implements GameRenderListener {
 	public enum Mode {
-		TwoD, ThreeD
+		TwoDimentional, ThreeDimentional
 	}
 
-	public final ModeSetting<Mode> mode = new ModeSetting<>(EncryptedString.of("Mode"), Mode.ThreeD, Mode.class);
+	public final ModeSetting<Mode> mode = new ModeSetting<>(EncryptedString.of("Mode"), Mode.ThreeDimentional, Mode.class);
 	private final NumberSetting alpha = new NumberSetting(EncryptedString.of("Alpha"), 0, 255, 100, 1);
 	private final NumberSetting width = new NumberSetting(EncryptedString.of("Line width"), 1, 10, 1, 1);
 	private final BooleanSetting tracers = new BooleanSetting(EncryptedString.of("Tracers"), false)
@@ -59,7 +59,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 	@Override
 	public void onGameRender(GameRenderEvent event) {
 		for (PlayerEntity player : mc.world.getPlayers()) {
-			if (mode.isMode(Mode.ThreeD)) {
+			if (mode.isMode(Mode.ThreeDimentional)) {
 				if (player != mc.player) {
 					Camera cam = mc.getBlockEntityRenderDispatcher().camera;
 					if (cam != null) {
@@ -72,9 +72,12 @@ public final class PlayerESP extends Module implements GameRenderListener {
 						event.matrices.translate(-vec.x, -vec.y, -vec.z);
 					}
 
-					double xPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevX, player.getX());
-					double yPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevY, player.getY());
-					double zPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevZ, player.getZ());
+					//double xPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevX, player.getX());
+					//double yPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevY, player.getY());
+					//double zPos = MathHelper.lerp(RenderTickCounter.ONE.getTickDelta(true), player.prevZ, player.getZ());
+                    double xPos = player.getLerpedPos(event.tickDelta).x;
+                    double yPos = player.getLerpedPos(event.tickDelta).y;
+                    double zPos = player.getLerpedPos(event.tickDelta).z;
 
 					RenderUtils.renderFilledBox(
 							event.matrices,
@@ -91,7 +94,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 
 					event.matrices.pop();
 				}
-			} else if (mode.isMode(Mode.TwoD)) {
+			} else if (mode.isMode(Mode.TwoDimentional)) {
 				if (player != mc.player) {
 					var cam = mc.getBlockEntityRenderDispatcher().camera;
 					event.matrices.push();
