@@ -88,7 +88,7 @@ public final class SelfDestruct extends Module {
 				Memory.disposeAll();
 			} catch (InterruptedException ignored) {}
 		}
-        
-	    }).start();
-    }
+	}
+
+    }).start();
 }
