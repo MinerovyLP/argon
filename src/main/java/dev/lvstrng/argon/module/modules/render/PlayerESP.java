@@ -27,10 +27,10 @@ import java.awt.*;
 
 public final class PlayerESP extends Module implements GameRenderListener {
 	public enum Mode {
-		TwoDimentional, ThreeDimentional
+		Hitbox, Filled
 	}
 
-	public final ModeSetting<Mode> mode = new ModeSetting<>(EncryptedString.of("Mode"), Mode.ThreeDimentional, Mode.class);
+	public final ModeSetting<Mode> mode = new ModeSetting<>(EncryptedString.of("Mode"), Mode.Filled, Mode.class);
 	private final NumberSetting alpha = new NumberSetting(EncryptedString.of("Alpha"), 0, 255, 100, 1);
 	private final NumberSetting width = new NumberSetting(EncryptedString.of("Line width"), 1, 10, 1, 1);
 	private final BooleanSetting tracers = new BooleanSetting(EncryptedString.of("Tracers"), false)
@@ -59,7 +59,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 	@Override
 	public void onGameRender(GameRenderEvent event) {
 		for (PlayerEntity player : mc.world.getPlayers()) {
-			if (mode.isMode(Mode.ThreeDimentional)) {
+			if (mode.isMode(Mode.Filled)) {
 				if (player != mc.player) {
 					Camera cam = mc.getBlockEntityRenderDispatcher().camera;
 					if (cam != null) {
@@ -93,7 +93,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 
 					event.matrices.pop();
 				}
-			} else if (mode.isMode(Mode.TwoDimentional)) {
+			} else if (mode.isMode(Mode.Hitbox)) {
 				if (player != mc.player) {
 					var cam = mc.getBlockEntityRenderDispatcher().camera;
 					event.matrices.push();
