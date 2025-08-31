@@ -80,9 +80,11 @@ public final class StorageEsp extends Module implements GameRenderListener, Pack
 	private void renderStorages(GameRenderEvent event) {
 		Camera cam = mc.gameRenderer.getCamera();
 		if (cam != null) {
-			MatrixStack matrices = event.matrices;
-			matrices.push();
+			event.matrices.push();
 			Vec3d vec = cam.getPos();
+
+            event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
+            event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
 			matrices.translate(-vec.x, -vec.y, -vec.z);
 		}
 
@@ -97,8 +99,7 @@ public final class StorageEsp extends Module implements GameRenderListener, Pack
 			}
 		}
 
-		MatrixStack matrixStack = event.matrices;
-		matrixStack.pop();
+		event.matrices.pop();
 	}
 
 	@Override

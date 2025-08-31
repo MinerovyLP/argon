@@ -63,12 +63,11 @@ public final class PlayerESP extends Module implements GameRenderListener {
 				if (player != mc.player) {
 					Camera cam = mc.getBlockEntityRenderDispatcher().camera;
 					if (cam != null) {
-						MatrixStack matrices = event.matrices;
-						matrices.push();
+						event.matrices.push();
 						Vec3d vec = cam.getPos();
 						
-            					event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
-            					event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
+            			event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
+            			event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
 						event.matrices.translate(-vec.x, -vec.y, -vec.z);
 					}
 
@@ -90,7 +89,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 							Utils.getMainColor(alpha.getValueInt(), 1).brighter());
 
 					if (tracers.getValue())
-						RenderUtils.renderLine(event.matrices, Utils.getMainColor(255, 1), mc.crosshairTarget.getPos(), player.getLerpedPos(RenderTickCounter.ONE.getTickDelta(true)));
+						RenderUtils.renderLine(event.matrices, Utils.getMainColor(255, 1), mc.crosshairTarget.getPos(), player.getLerpedPos(mc.getRenderTickCounter().getTickDelta(true)));
 
 					event.matrices.pop();
 				}
@@ -98,12 +97,12 @@ public final class PlayerESP extends Module implements GameRenderListener {
 				if (player != mc.player) {
 					var cam = mc.getBlockEntityRenderDispatcher().camera;
 					event.matrices.push();
-            				event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
-            				event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
+            		event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
+            		event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
 					renderOutline(player, getColor(alpha.getValueInt()), event.matrices);
 
 					if (tracers.getValue())
-						RenderUtils.renderLine(event.matrices, Utils.getMainColor(255, 1), mc.crosshairTarget.getPos(), player.getLerpedPos(RenderTickCounter.ONE.getTickDelta(true)));
+						RenderUtils.renderLine(event.matrices, Utils.getMainColor(255, 1), mc.crosshairTarget.getPos(), player.getLerpedPos(mc.getRenderTickCounter().getTickDelta(true)));
 
 					event.matrices.pop();
 				}
@@ -119,7 +118,7 @@ public final class PlayerESP extends Module implements GameRenderListener {
 
 		Camera c = mc.gameRenderer.getCamera();
 		Vec3d camPos = c.getPos();
-		Vec3d start = e.getLerpedPos(RenderTickCounter.ONE.getTickDelta(true)).subtract(camPos);
+		Vec3d start = e.getLerpedPos(mc.getRenderTickCounter().getTickDelta(true)).subtract(camPos);
 		float x = (float) start.x;
 		float y = (float) start.y;
 		float z = (float) start.z;
