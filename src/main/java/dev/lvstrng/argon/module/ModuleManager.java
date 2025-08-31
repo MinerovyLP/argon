@@ -50,6 +50,7 @@ public final class ModuleManager implements ButtonListener {
 		add(new NoJumpDelay());
 		add(new PingSpoof());
 		add(new FakeLag());
+        add(new FakePositionLag());
 		add(new AutoClicker());
 		add(new KeyPearl());
 		add(new NoBreakDelay());
