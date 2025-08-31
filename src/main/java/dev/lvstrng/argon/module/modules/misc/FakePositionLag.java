@@ -29,7 +29,7 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 
 	private int delay;
 	public FakePositionLag() {
-		super(EncryptedString.of("Fake Lag"),
+		super(EncryptedString.of("Fake Position Lag"),
 				EncryptedString.of("Makes it impossible to aim at you by creating a lagging effect (Move Packets Only)"),
 				-1,
 				Category.MISC);
