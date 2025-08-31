@@ -85,7 +85,7 @@ public final class StorageEsp extends Module implements GameRenderListener, Pack
 
             event.matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(cam.getPitch()));
             event.matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(cam.getYaw() + 180F));
-			matrices.translate(-vec.x, -vec.y, -vec.z);
+			event.matrices.translate(-vec.x, -vec.y, -vec.z);
 		}
 
 		for (WorldChunk chunk : WorldUtils.getLoadedChunks().toList()) {
