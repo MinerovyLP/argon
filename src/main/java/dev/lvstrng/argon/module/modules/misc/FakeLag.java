@@ -83,7 +83,7 @@ public final class FakeLag extends Module implements PlayerTickListener, PacketR
 		if (mc.world == null || mc.player.isUsingItem() || mc.player.isDead())
 			return;
 
-		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPackete || vent.packet instanceof ClickSlotC2SPacket) {
+		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPacket || event.packet instanceof ClickSlotC2SPacket) {
 			reset();
 			return;
 		}

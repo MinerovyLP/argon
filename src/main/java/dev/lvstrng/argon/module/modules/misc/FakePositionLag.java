@@ -15,6 +15,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
@@ -24,7 +25,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.Queue;
 
-public final class FakePositionLag extends Module implements PlayerTickListener, PacketSendListener {
+public final class FakePositionLag extends Module implements PlayerTickListener, PacketReceiveListener, PacketSendListener {
 	public final Queue<Packet<?>> packetQueue = Queues.newConcurrentLinkedQueue();
 	public boolean bool;
 	public TimerUtils timerUtil = new TimerUtils();
@@ -45,6 +46,7 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 	public void onEnable() {
 		eventManager.add(PlayerTickListener.class, this);
 		eventManager.add(PacketSendListener.class, this);
+        eventManager.add(PacketReceiveListener.class, this);
 
 		timerUtil.reset();
 
@@ -56,8 +58,22 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 	public void onDisable() {
 		eventManager.remove(PlayerTickListener.class, this);
 		eventManager.remove(PacketSendListener.class, this);
+        eventManager.add(PacketReceiveListener.class, this);
 		reset();
 		super.onDisable();
+	}
+
+    @Override
+	public void onPacketReceive(PacketReceiveEvent event) {
+		if (mc.world == null)
+			return;
+
+		if(mc.player.isDead())
+			return;
+
+		if (event.packet instanceof ExplosionS2CPacket) {
+			reset();
+		}
 	}
 
 	@Override
@@ -65,7 +81,7 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 		if (mc.world == null || mc.player.isUsingItem() || mc.player.isDead())
 			return;
 
-		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPackete || vent.packet instanceof ClickSlotC2SPacket) {
+		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPacket || event.packet instanceof ClickSlotC2SPacket) {
 			reset();
 			return;
 		}
