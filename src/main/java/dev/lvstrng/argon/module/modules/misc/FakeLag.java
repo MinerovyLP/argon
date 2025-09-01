@@ -18,6 +18,7 @@ import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
+import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.util.math.Vec3d;
 
@@ -82,7 +83,7 @@ public final class FakeLag extends Module implements PlayerTickListener, PacketR
 		if (mc.world == null || mc.player.isUsingItem() || mc.player.isDead())
 			return;
 
-		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerInteractItemC2SPackete || vent.packet instanceof ClickSlotC2SPacket) {
+		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPackete || vent.packet instanceof ClickSlotC2SPacket) {
 			reset();
 			return;
 		}
