@@ -11,6 +11,7 @@ import dev.lvstrng.argon.module.setting.MinMaxSetting;
 import dev.lvstrng.argon.module.setting.NumberSetting;
 import dev.lvstrng.argon.utils.EncryptedString;
 import dev.lvstrng.argon.utils.TimerUtils;
+import dev.lvstrng.argon.utils.SchedulerUtils;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
@@ -18,11 +19,8 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.Queue;
 
-public final class FakePositionLag extends Module implements PlayerTickListener, PacketSendListener {
-	public final Queue<Packet<?>> packetQueue = Queues.newConcurrentLinkedQueue();
-	public boolean bool;
-	public Vec3d pos = Vec3d.ZERO;
-	public TimerUtils timerUtil = new TimerUtils();
+public final class FakePositionLag extends Module implements PacketSendListener {
+    private final SchedulerUtils scheduledutils = new SchedulerUtils();
 	private final MinMaxSetting lagDelay = new MinMaxSetting(EncryptedString.of("Lag Delay"), 0, 1000, 1, 100, 200);
 	private final BooleanSetting cancelOnElytra = new BooleanSetting(EncryptedString.of("Cancel on Elytra"), false)
 			.setDescription(EncryptedString.of("Cancel the lagging effect when you're wearing an elytra"));
@@ -38,70 +36,27 @@ public final class FakePositionLag extends Module implements PlayerTickListener,
 
 	@Override
 	public void onEnable() {
-		eventManager.add(PlayerTickListener.class, this);
 		eventManager.add(PacketSendListener.class, this);
-
-		timerUtil.reset();
-		if (mc.player != null)
-			pos = mc.player.getPos();
-
+        eventManager.add(PlayerTickListener.class, scheduledutils);
 		delay = lagDelay.getRandomValueInt();
 		super.onEnable();
 	}
 
 	@Override
 	public void onDisable() {
-		eventManager.remove(PlayerTickListener.class, this);
 		eventManager.remove(PacketSendListener.class, this);
-		reset();
+        eventManager.remove(PlayerTickListener.class, scheduledutils);
 		super.onDisable();
 	}
 
 	@Override
 	public void onPacketSend(PacketSendEvent event) {
-		if (mc.world == null || mc.player.isUsingItem() || mc.player.isDead())
-			return;
+		if (mc.world == null || mc.player.isDead()) return;
+		if (!(event.packet instanceof PlayerMoveC2SPacket)) return;
+		if (cancelOnElytra.getValue() && mc.player.getInventory().getArmorStack(2).getItem() == Items.ELYTRA) return;
 
-		if (!(event.packet instanceof PlayerMoveC2SPacket)) {
-			reset();
-			return;
-		}
-
-		if (cancelOnElytra.getValue() && mc.player.getInventory().getArmorStack(2).getItem() == Items.ELYTRA) {
-			reset();
-			return;
-		}
-
-		if (!bool) {
-			packetQueue.add(event.packet);
-			event.cancel();
-		}
-	}
-
-	@Override
-	public void onPlayerTick() {
-		if (timerUtil.delay(delay)) {
-			if (mc.player != null && !mc.player.isUsingItem()) {
-				reset();
-				delay = lagDelay.getRandomValueInt();
-			}
-		}
-	}
-
-	private void reset() {
-		if (mc.player == null || mc.world == null)
-			return;
-
-		bool = true;
-
-		synchronized (packetQueue) {
-			while (!packetQueue.isEmpty()) {
-				mc.getNetworkHandler().getConnection().send(packetQueue.poll(), null, false);
-			}
-		}
-
-		bool = false;
-		timerUtil.reset();
-		pos = mc.player.getPos();
+        delay = lagDelay.getRandomValueInt();
+        scheduledutils.schedule(() -> mc.getNetworkHandler().getConnection().send(event.packet), delay);
+		event.cancel();
 	}
 }
