@@ -2,35 +2,29 @@ package dev.lvstrng.argon.utils;
 
 import dev.lvstrng.argon.event.events.PlayerTickListener;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SchedulerUtils implements PlayerTickListener {
 
     private long x = 0;
-    private final List<ScheduledTask> tasks = new ArrayList<>();
+    private final Queue<ScheduledTask> tasks = new ConcurrentLinkedQueue<>();
 
     @Override
     public void onPlayerTick() {
         for (int i = 0; i < 50; i++) {
             x++;
-            synchronized (tasks) {
-                if (!tasks.isEmpty()) {
-                    Iterator<ScheduledTask> iterator = tasks.iterator();
-                    while (iterator.hasNext()) {
-                        ScheduledTask task = iterator.next();
-                        if (x >= task.executeAt) {
-                            try { task.runnable.run(); } catch (Exception e) {}
-                            iterator.remove();
-                     }
-                 }
+            ScheduledTask task;
+            while ((task = tasks.peek()) != null && x >= task.executeAt) {
+                try {
+                    task.runnable.run();
+                } catch (Exception ignored) {}
+                tasks.poll();
+            }
 
-                    if (tasks.isEmpty()) {
-                        x = 0;
-                        break;
-                    }
-                }
+            if (tasks.isEmpty()) {
+                x = 0;
+                break;
             }
         }
     }
@@ -42,9 +36,7 @@ public class SchedulerUtils implements PlayerTickListener {
      * @param ms   How many ms to wait before running
      */
     public void schedule(Runnable func, long ms) {
-        synchronized (tasks) {
-            tasks.add(new ScheduledTask(func, x + ms));
-        }
+        tasks.add(new ScheduledTask(func, x + ms));
     }
 
     /**
