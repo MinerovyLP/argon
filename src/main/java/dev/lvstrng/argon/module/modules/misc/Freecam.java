@@ -116,7 +116,8 @@ public final class Freecam extends Module implements TickListener, CameraUpdateL
 
 	@Override
 	public void onCameraUpdate(CameraUpdateEvent event) {
-		float tickDelta = RenderTickCounter.ONE.getTickDelta(true);
+		//float tickDelta = RenderTickCounter.ONE.getTickDelta(true);
+        float tickDelta = mc.getRenderTickCounter().getTickDelta(true);
 
 		if (mc.currentScreen != null)
 			return;
