@@ -71,6 +71,7 @@ public final class CrystalOptimizer extends Module implements PacketSendListener
 								return;
 
 							//hit.getEntity().kill();
+                            hit.getEntity().discard();
 							hit.getEntity().setRemoved(Entity.RemovalReason.KILLED);
 							hit.getEntity().onRemoved();
 						}
