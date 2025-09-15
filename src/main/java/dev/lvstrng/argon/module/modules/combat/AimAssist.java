@@ -174,8 +174,8 @@ public final class AimAssist extends Module implements HudListener, MouseMoveLis
 		}
 
 		if (lerp.isMode(LerpMode.EaseOut)) {
-			yaw = (float) easeOutBackDegrees(mc.player.getYaw(), rotation.yaw(), yawStrength * RenderTickCounter.ONE.getLastFrameDuration());
-			pitch = (float) easeOutBackDegrees(mc.player.getPitch(), rotation.pitch(), pitchStrength * RenderTickCounter.ONE.getLastFrameDuration());
+			yaw = (float) easeOutBackDegrees(mc.player.getYaw(), rotation.yaw(), yawStrength * mc.getRenderTickCounter().getLastFrameDuration());
+			pitch = (float) easeOutBackDegrees(mc.player.getPitch(), rotation.pitch(), pitchStrength * mc.getRenderTickCounter().getLastFrameDuration());
 		}
 
 		if (MathUtils.randomInt(1, 100) <= randomization.getValueInt()) {

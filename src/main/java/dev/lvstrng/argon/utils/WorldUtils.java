@@ -99,7 +99,7 @@ public final class WorldUtils {
 		if (entity == null || mc.world == null) return null;
 
 		double d = distance;
-		Vec3d cameraPosVec = entity.getCameraPosVec(RenderTickCounter.ONE.getTickDelta(true));
+		Vec3d cameraPosVec = entity.getCameraPosVec(mc.getRenderTickCounter().getTickDelta(true));
 		Vec3d rotationVec = getPlayerLookVec(yaw, pitch);
 		Vec3d range = cameraPosVec.add(rotationVec.x * d, rotationVec.y * d, rotationVec.z * d);
 
