@@ -32,6 +32,8 @@ public final class FakeLag extends Module implements PlayerTickListener, PacketR
 	private final MinMaxSetting lagDelay = new MinMaxSetting(EncryptedString.of("Lag Delay"), 0, 1000, 1, 100, 200);
 	private final BooleanSetting cancelOnElytra = new BooleanSetting(EncryptedString.of("Cancel on Elytra"), false)
 			.setDescription(EncryptedString.of("Cancel the lagging effect when you're wearing an elytra"));
+    private final BooleanSetting cancelOnGaps = new BooleanSetting(EncryptedString.of("Cancel on Gaps"), true)
+			.setDescription(EncryptedString.of("Cancel the lagging effect when you're holding golden apples"));
 
 	private int delay;
 	public FakeLag() {
@@ -39,7 +41,7 @@ public final class FakeLag extends Module implements PlayerTickListener, PacketR
 				EncryptedString.of("Makes it impossible to aim at you by creating a lagging effect"),
 				-1,
 				Category.MISC);
-		addSettings(lagDelay, cancelOnElytra);
+		addSettings(lagDelay, cancelOnElytra, cancelOnGaps);
 	}
 
 	@Override
@@ -83,12 +85,17 @@ public final class FakeLag extends Module implements PlayerTickListener, PacketR
 		if (mc.world == null || mc.player.isUsingItem() || mc.player.isDead())
 			return;
 
-		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerActionC2SPacket || event.packet instanceof PlayerInteractItemC2SPacket || event.packet instanceof ClickSlotC2SPacket) {
+		if (event.packet instanceof PlayerInteractEntityC2SPacket || event.packet instanceof HandSwingC2SPacket || event.packet instanceof PlayerInteractBlockC2SPacket || event.packet instanceof PlayerInteractItemC2SPacket || event.packet instanceof ClickSlotC2SPacket) {
 			reset();
 			return;
 		}
 
 		if (cancelOnElytra.getValue() && mc.player.getInventory().getArmorStack(2).getItem() == Items.ELYTRA) {
+			reset();
+			return;
+		}
+
+        if (cancelOnGaps.getValue() && mc.player.getInventory().getMainHandStack().getItem() == Items.GOLDEN_APPLE) {
 			reset();
 			return;
 		}
