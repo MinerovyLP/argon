@@ -5,7 +5,7 @@
   "name": "ImmediatelyFast",
   "description": "Speed up and optimize immediate mode rendering in Minecraft",
   "authors": [
-    "RaphiMC"
+    "RK_01"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/immediatelyfast",
@@ -39,7 +39,8 @@
     "modmenu": {
       "links": {
         "modmenu.discord": "https://discord.gg/dCzT9XHEWu"
-      }
+      },
+      "badges": ["client"]
     }
   }
 }
