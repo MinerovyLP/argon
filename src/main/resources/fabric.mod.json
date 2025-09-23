@@ -26,12 +26,12 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "~1.21"
+    "minecraft": "1.21.4"
   },
   "recommends": {
     "sodium": "*"
   },
-  "conflicts": {
+  "breaks": {
     "slight-gui-modifications": "*",
     "vulkanmod": "*"
   },
@@ -39,8 +39,7 @@
     "modmenu": {
       "links": {
         "modmenu.discord": "https://discord.gg/dCzT9XHEWu"
-      },
-      "badges": ["client"]
+      }
     }
   }
 }
