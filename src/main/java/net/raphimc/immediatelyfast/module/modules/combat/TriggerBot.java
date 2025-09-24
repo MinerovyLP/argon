@@ -32,10 +32,10 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 			.setDescription(EncryptedString.of("Only gets triggered if holding down left click"));
 	private final BooleanSetting allItems = new BooleanSetting(EncryptedString.of("All Items"), false)
 			.setDescription(EncryptedString.of("Works with all Items /THIS USES SWORD DELAY AS THE DELAY/"));
-	/*private final MinMaxSetting swordDelay = new MinMaxSetting(EncryptedString.of("Sword Delay"), 0, 1000, 1, 540, 550)
+	private final MinMaxSetting swordDelay = new MinMaxSetting(EncryptedString.of("Sword Delay"), 0, 1000, 1, 540, 550)
 			.setDescription(EncryptedString.of("Delay for swords"));
 	private final MinMaxSetting axeDelay = new MinMaxSetting(EncryptedString.of("Axe Delay"), 0, 1000, 1, 780, 800)
-			.setDescription(EncryptedString.of("Delay for axes"));*/
+			.setDescription(EncryptedString.of("Delay for axes"));
 	/*private final NumberSetting swordDelay = new NumberSetting(EncryptedString.of("Sword Delay"), 0, 1000, 550, 1)
 			.setDescription(EncryptedString.of("Delay for swords"));*/
 	/*private final NumberSetting axeDelay = new NumberSetting(EncryptedString.of("Axe Delay"), 0, 1000, 800, 1)
@@ -61,9 +61,9 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 	private final NumberSetting shieldTime = new NumberSetting(EncryptedString.of("Shield Time"), 100, 1000, 350, 1);
 	private final BooleanSetting sticky = new BooleanSetting(EncryptedString.of("Same Player"), false)
 			.setDescription(EncryptedString.of("Hits the player that was recently attacked, good for FFA"));
-	//private final TimerUtils timer = new TimerUtils();
+	private final TimerUtils timer = new TimerUtils();
 
-	//private int currentSwordDelay, currentAxeDelay;
+	private int currentSwordDelay, currentAxeDelay;
 
     private double lastY = Double.NaN;
     private double trackedFallDistance = 0;
@@ -73,13 +73,13 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 				EncryptedString.of("Automatically hits players for you"),
 				-1,
 				Category.COMBAT);
-		addSettings(inScreen, whileUse, onLeftClick, allItems, /*swordDelay, axeDelay, */checkShield, whileAscend, sticky, onlyCritSword, onlyCritAxe, swing, clickSimulation, strayBypass, allEntities, useShield, shieldTime);
+		addSettings(inScreen, whileUse, onLeftClick, allItems, swordDelay, axeDelay, checkShield, whileAscend, sticky, onlyCritSword, onlyCritAxe, swing, clickSimulation, strayBypass, allEntities, useShield, shieldTime);
 	}
 
 	@Override
 	public void onEnable() {
-		//currentSwordDelay = swordDelay.getRandomValueInt();
-		//currentAxeDelay = axeDelay.getRandomValueInt();
+		currentSwordDelay = swordDelay.getRandomValueInt();
+		currentAxeDelay = axeDelay.getRandomValueInt();
 
 		eventManager.add(TickListener.class, this);
 		eventManager.add(AttackListener.class, this);
@@ -140,8 +140,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 							if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
 								return;
 
-							//if (timer.delay(currentSwordDelay)) {
-                            if (mc.player.getAttackCooldownProgress(0.0F) >= 1.0F) {
+							if (timer.delay(currentSwordDelay)) {
 								if (useShield.getValue()) {
 									if (mc.player.getOffHandStack().getItem() == Items.SHIELD && mc.player.isBlocking())
 										MouseSimulation.mouseRelease(GLFW.GLFW_MOUSE_BUTTON_RIGHT);
@@ -152,8 +151,8 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 								if (clickSimulation.getValue())
 									MouseSimulation.mouseClick(GLFW.GLFW_MOUSE_BUTTON_LEFT);
 
-								//currentSwordDelay = swordDelay.getRandomValueInt();
-								//timer.reset();
+								currentSwordDelay = swordDelay.getRandomValueInt();
+								timer.reset();
 							} else {
 								if (useShield.getValue()) {
 									if (mc.player.getOffHandStack().getItem() == Items.SHIELD) {
@@ -177,15 +176,14 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 							if (onlyCritAxe.getValue() && trackedFallDistance <= 0.0F)
 								return;
 
-							//if (timer.delay(currentAxeDelay)) {
-                            if (mc.player.getAttackCooldownProgress(0.0F) >= 1.0F) {
+							if (timer.delay(currentAxeDelay)) {
 								WorldUtils.hitEntity(entity, swing.getValue());
 
 								if (clickSimulation.getValue())
 									MouseSimulation.mouseClick(GLFW.GLFW_MOUSE_BUTTON_LEFT);
 
-								//currentAxeDelay = axeDelay.getRandomValueInt();
-								//timer.reset();
+								currentAxeDelay = axeDelay.getRandomValueInt();
+								timer.reset();
 							} else {
 								if (useShield.getValue()) {
 									if (mc.player.getOffHandStack().getItem() == Items.SHIELD) {
@@ -214,15 +212,14 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 						if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
 							return;
 
-						//if (timer.delay(currentSwordDelay)) {
-                        if (mc.player.getAttackCooldownProgress(0.0F) >= 1.0F) {
+						if (timer.delay(currentSwordDelay)) {
 							WorldUtils.hitEntity(entity, swing.getValue());
 
 							if (clickSimulation.getValue())
 								MouseSimulation.mouseClick(GLFW.GLFW_MOUSE_BUTTON_LEFT);
 
-							//currentSwordDelay = swordDelay.getRandomValueInt();
-							//timer.reset();
+							currentSwordDelay = swordDelay.getRandomValueInt();
+							timer.reset();
 						} else {
 							if (useShield.getValue()) {
 								if (mc.player.getOffHandStack().getItem() == Items.SHIELD) {
