@@ -65,9 +65,6 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 
 	private int currentSwordDelay, currentAxeDelay;
 
-    private static double lastY = Double.NaN;
-    private static double trackedFallDistance = 0;
-
 	public TriggerBot() {
 		super(EncryptedString.of("Trigger Bot"),
 				EncryptedString.of("Automatically hits players for you"),
@@ -114,13 +111,6 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 			if (!whileAscend.getValue() && ((!mc.player.isOnGround() && mc.player.getVelocity().y > 0) || (!mc.player.isOnGround() && mc.player.fallDistance <= 0.0F)))
 				return;
 
-            double currentY = mc.player.getY();
-            if (!player.isOnGround()) {
-                if (currentY < lastY) trackedFallDistance += (lastY - currentY);
-                else if (currentY > lastY) trackedFallDistance -= (currentY - lastY);
-            } else if (player.isOnGround() && trackedFallDistance != 0) trackedFallDistance = 0;
-            lastY = currentY;
-
 			if (!allItems.getValue()) {
 				if (item instanceof SwordItem) {
 					if (mc.crosshairTarget instanceof EntityHitResult hit) {
@@ -137,7 +127,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 									return;
 							}
 
-							if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
+							if (onlyCritSword.getValue() && mc.player.fallDistance <= 0.0F)
 								return;
 
 							if (timer.delay(currentSwordDelay)) {
@@ -173,7 +163,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 									return;
 							}
 
-							if (onlyCritAxe.getValue() && trackedFallDistance <= 0.0F)
+							if (onlyCritAxe.getValue() && mc.player.fallDistance <= 0.0F)
 								return;
 
 							if (timer.delay(currentAxeDelay)) {
@@ -209,7 +199,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 								return;
 						}
 
-						if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
+						if (onlyCritSword.getValue() && mc.player.fallDistance <= 0.0F)
 							return;
 
 						if (timer.delay(currentSwordDelay)) {
