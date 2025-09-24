@@ -115,10 +115,10 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 				return;
 
             double currentY = mc.player.getY();
-            if (!mc.player.isOnGround()) {
+            if (!player.isOnGround()) {
                 if (currentY < lastY) trackedFallDistance += (lastY - currentY);
                 else if (currentY > lastY) trackedFallDistance -= (currentY - lastY);
-            } else if (mc.player.isOnGround() && trackedFallDistance != 0) trackedFallDistance = 0;
+            } else if (player.isOnGround() && trackedFallDistance != 0) trackedFallDistance = 0;
             lastY = currentY;
 
 			if (!allItems.getValue()) {
