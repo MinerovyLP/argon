@@ -17,7 +17,7 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "dev.lvstrng.argon.Main"
+      "net.raphimc.immediatelyfast.Main"
     ]
   },
   "mixins": [
