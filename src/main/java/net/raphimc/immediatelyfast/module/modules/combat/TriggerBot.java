@@ -65,8 +65,8 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 
 	private int currentSwordDelay, currentAxeDelay;
 
-    private double lastY = Double.NaN;
-    private double trackedFallDistance = 0;
+    private static double lastY = Double.NaN;
+    private static double trackedFallDistance = 0;
 
 	public TriggerBot() {
 		super(EncryptedString.of("Trigger Bot"),
@@ -111,7 +111,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 			if (((mc.player.getOffHandStack().getItem().getComponents().contains(DataComponentTypes.FOOD) || mc.player.getOffHandStack().getItem() instanceof ShieldItem) && GLFW.glfwGetMouseButton(mc.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS) && !whileUse.getValue())
 				return;
 			
-			if (!whileAscend.getValue() && ((!mc.player.isOnGround() && mc.player.getVelocity().y > 0) || (!mc.player.isOnGround() && trackedFallDistance <= 0.0F)))
+			if (!whileAscend.getValue() && ((!mc.player.isOnGround() && mc.player.getVelocity().y > 0) || (!mc.player.isOnGround() && mc.player.fallDistance <= 0.0F)))
 				return;
 
             double currentY = mc.player.getY();
