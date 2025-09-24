@@ -65,6 +65,9 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 
 	//private int currentSwordDelay, currentAxeDelay;
 
+    private double lastY = Double.NaN;
+    private double trackedFallDistance = 0;
+
 	public TriggerBot() {
 		super(EncryptedString.of("Trigger Bot"),
 				EncryptedString.of("Automatically hits players for you"),
@@ -108,8 +111,15 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 			if (((mc.player.getOffHandStack().getItem().getComponents().contains(DataComponentTypes.FOOD) || mc.player.getOffHandStack().getItem() instanceof ShieldItem) && GLFW.glfwGetMouseButton(mc.getWindow().getHandle(), GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS) && !whileUse.getValue())
 				return;
 			
-			if (!whileAscend.getValue() && ((!mc.player.isOnGround() && mc.player.getVelocity().y > 0) || (!mc.player.isOnGround() && mc.player.fallDistance <= 0.0F)))
+			if (!whileAscend.getValue() && ((!mc.player.isOnGround() && mc.player.getVelocity().y > 0) || (!mc.player.isOnGround() && trackedFallDistance <= 0.0F)))
 				return;
+
+            double currentY = mc.player.getY();
+            if (!mc.player.isOnGround()) {
+                if (currentY < lastY) trackedFallDistance += (lastY - currentY);
+                else if (currentY > lastY) trackedFallDistance -= (currentY - lastY);
+            } else if (mc.player.isOnGround() && trackedFallDistance != 0) trackedFallDistance = 0;
+            lastY = currentY;
 
 			if (!allItems.getValue()) {
 				if (item instanceof SwordItem) {
@@ -127,7 +137,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 									return;
 							}
 
-							if (onlyCritSword.getValue() && mc.player.fallDistance <= 0.0F)
+							if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
 								return;
 
 							//if (timer.delay(currentSwordDelay)) {
@@ -164,7 +174,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 									return;
 							}
 
-							if (onlyCritAxe.getValue() && mc.player.fallDistance <= 0.0F)
+							if (onlyCritAxe.getValue() && trackedFallDistance <= 0.0F)
 								return;
 
 							//if (timer.delay(currentAxeDelay)) {
@@ -201,7 +211,7 @@ public final class TriggerBot extends Module implements TickListener, AttackList
 								return;
 						}
 
-						if (onlyCritSword.getValue() && mc.player.fallDistance <= 0.0F)
+						if (onlyCritSword.getValue() && trackedFallDistance <= 0.0F)
 							return;
 
 						//if (timer.delay(currentSwordDelay)) {

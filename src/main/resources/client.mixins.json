@@ -8,8 +8,7 @@
     "EndCrystalItemMixin",
     "ItemStackMixin",
     "LivingEntityAccessor",
-    "WorldAccessor",
-    "EntityMixin"
+    "WorldAccessor"
   ],
   "client": [
     "BufferRendererAccessor",
