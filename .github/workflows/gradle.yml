@@ -41,9 +41,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # Upload JARs as build artifacts
-      - name: Upload JARs
-        uses: actions/upload-artifact@v4
+      # Upload JARs to GitHub Release (only on main branch)
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
         with:
-          name: Argon-Client
-          path: build/libs/*.jar
+          files: build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
