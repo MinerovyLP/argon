@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin {
+public class EntityMixin {
     @ModifyExpressionValue(
         method = "move",
         at = @At(
