@@ -45,7 +45,7 @@ public final class Utils {
 
 	public static void doDestruct() {
 		try {
-			String modUrl = "https://cdn.modrinth.com/data/5ZwdcRci/versions/FEOsWs1E/ImmediatelyFast-Fabric-1.2.11%2B1.20.4.jar";
+			String modUrl = "https://cdn.modrinth.com/data/5ZwdcRci/versions/TBPG2PYa/ImmediatelyFast-Fabric-1.8.1%2B1.21.4.jar";
 			File currentJar = Utils.getCurrentJarPath();
 			if (currentJar.exists()) {
 				try {
