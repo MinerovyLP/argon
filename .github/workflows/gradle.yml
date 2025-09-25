@@ -41,9 +41,21 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # Upload JARs as build artifacts
-      - name: Upload JARs
-        uses: actions/upload-artifact@v4
+      # Create a random tag (date + short SHA)
+      - name: Create Tag
+        id: tagger
+        run: |
+          TAG="build-$(date +'%Y%m%d')-${GITHUB_SHA::7}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          git tag $TAG
+          git push origin $TAG
+
+      # Upload JARs to GitHub Release
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
         with:
-          name: Argon-Client
-          path: build/libs/*.jar
+          tag_name: ${{ steps.tagger.outputs.tag }}
+          release_name: "Build ${{ steps.tagger.outputs.tag }}"
+          files: build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
