@@ -37,7 +37,9 @@ public final class AimAssist extends Module implements HudListener, MouseMoveLis
 
 	private final NumberSetting radius = new NumberSetting(EncryptedString.of("Radius"), 0.1, 6, 5, 0.1);
 
-	private final BooleanSetting seeOnly = new BooleanSetting(EncryptedString.of("See Only"), true);
+	private final BooleanSetting seeOnly = new BooleanSetting(EncryptedString.of("Visible Only"), true);
+    private final BooleanSetting ignoreNoHP = new BooleanSetting(EncryptedString.of("Ignore 0 HP"), false)
+			.setDescription(EncryptedString.of("Stops assisting if target entity has 0 HP (is dead)"));
 	private final BooleanSetting lookAtNearest = new BooleanSetting(EncryptedString.of("Look at Nearest"), false);
 
 	private final NumberSetting fov = new NumberSetting(EncryptedString.of("FOV"), 5, 360, 180, 1);
@@ -86,7 +88,7 @@ public final class AimAssist extends Module implements HudListener, MouseMoveLis
 				-1,
 				Category.COMBAT);
 
-		addSettings(stickyAim, onlyWeapon, onLeftClick, aimAt, stopAtTargetVertical, stopAtTargetHorizontal, radius, seeOnly, lookAtNearest, fov, pitchSpeed, yawSpeed, speedChange, randomization, yawAssist, pitchAssist, waitFor, lerp, posMode);
+		addSettings(stickyAim, onlyWeapon, onLeftClick, aimAt, stopAtTargetVertical, stopAtTargetHorizontal, radius, seeOnly, ignoreNoHP, lookAtNearest, fov, pitchSpeed, yawSpeed, speedChange, randomization, yawAssist, pitchAssist, waitFor, lerp, posMode);
 	}
 
 	@Override
@@ -129,7 +131,7 @@ public final class AimAssist extends Module implements HudListener, MouseMoveLis
 		if (stickyAim.getValue() && mc.player.getAttacking() instanceof PlayerEntity player && player.distanceTo(mc.player) < radius.getValue())
 			target = player;
 
-		if (target == null)
+		if (target == null || (target.getHealth() <= 0.0F && ignoreNoHP.getValue()))
 			return;
 
 		if(resetSpeed.delay(speedChange.getValueFloat())) {
